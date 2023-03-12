@@ -1,0 +1,30 @@
+<ScrSett>:
+    BoxBgDark:
+        orientation: "vertical"
+        padding: 5,5,5,5
+        BoxBgLight:
+            orientation: "vertical"
+            padding:5,5,5,5
+            spacing:5
+            BoxBgDark:
+                size_hint: (1, 0.1)
+                Label:
+                    text: "Settings"
+                    font_size: "23sp"
+            BoxBgDark:
+                padding: (2,)
+                BoxBgLight:
+                    padding: (2,)
+                    spacing: 2
+                    BoxBgDark:
+            BoxBgDark:
+                padding: (2,)
+                size_hint: (1, 0.05)
+                B_rounded:
+                    text: "back"
+                    on_release:
+                        root.manager.transition.direction = "right"
+                        root.manager.current = "scr_main"
+                BoxBgDark:
+                BoxBgDark:
+

@@ -1,0 +1,49 @@
+<ScrMain>:
+    BoxBgDark:
+        orientation: "vertical"
+        padding: 5,5,5,5
+        BoxBgLight:
+            orientation: "vertical"
+            padding:5,5,5,5
+            spacing:5
+            BoxBgDark:
+                name: "box_title"
+                size_hint: (1, 0.1)
+                Label:
+                    text: "pip Control"
+                    font_size: "23sp"
+
+            BoxBgDark:
+                name: "box_middle"
+                padding: (10,)
+                BoxBgLight:
+                    padding: (2,)
+                    spacing: 2
+                    BoxBgDark:
+                        orientation: "vertical"
+                        size_hint: (0.3, 1)
+                        padding: (2,)
+                        spacing: 2
+                        BoxBgLight:
+                            size_hint: (1, 0.075)
+                            Label:
+                                text: "Actions:"
+                        B_rounded:
+                            text: "check outdated"
+                            size_hint: (1, 0.1)
+                            on_release: app.check_pip_outdated()
+                        BoxBgDark:
+
+
+                    BoxBgDark:
+            BoxBgDark:
+                padding: (2,)
+                size_hint: (1, 0.05)
+                BoxBgDark:
+                BoxBgDark:
+                B_rounded:
+                    text: 'Settings'
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        root.manager.current = "scr_sett"
+

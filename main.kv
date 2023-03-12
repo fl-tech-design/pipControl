@@ -1,0 +1,41 @@
+#: include scr_main.kv
+#: include scr_sett.kv
+#: set bg_test rgba(255/255, 44/255, 44/255, 1)
+#: set bg_dark (13/255, 13/255, 13/255, 1)
+#: set bg_light (25/255, 25/255, 25/255, 1)
+#: set bg_but_normal (0.094, 0.062, 0.239, 1)
+#: set bg_but_down (0.094, 0.062, 0.239, 0.5)
+
+<WindowManager>:
+    ScrMain:
+        name: "scr_main"
+    ScrSett:
+        name: 'scr_sett'
+
+<BoxBgDark@BoxLayout>:
+    canvas.before:
+        Color:
+            rgba: bg_dark
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<BoxBgLight@BoxLayout>:
+    canvas.before:
+        Color:
+            rgba: bg_light
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<B_rounded@Button>:
+    background_color: 0,0,0,0
+    canvas.before:
+        Color:
+            rgba: bg_but_normal if self.state == 'normal' else bg_but_down
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: (15,)
+    size_hint: 0.5, 1
+
