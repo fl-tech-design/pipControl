@@ -1,0 +1,4 @@
+Package    Version Latest Type
+---------- ------- ------ -----
+setuptools 67.2.0  67.6.0 wheel
+wheel      0.38.4  0.40.0 wheel

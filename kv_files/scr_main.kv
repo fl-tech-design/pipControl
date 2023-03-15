@@ -1,0 +1,113 @@
+<ScrMain>:
+    BoxBgDark:
+        id: "box_0"
+        orientation: "vertical"
+        padding: 5,5,5,5
+        BoxBgLight:
+            id: "box_1"
+            orientation: "vertical"
+            padding:5,5,5,5
+            spacing:5
+            BoxBgDark:
+                id: "box_title"
+                size_hint: (1, 0.1)
+                Label:
+                    text: "pip Control"
+                    font_size: "23sp"
+
+            BoxBgDark:
+                id: "box_middle"
+                padding: (10,)
+                BoxBgLight:
+                    padding: (2,)
+                    spacing: 2
+                    BoxBgSlight:
+                        id: "box_left"
+                        orientation: "vertical"
+                        size_hint: (0.3, 1)
+                        spacing: 2
+                        BoxBgDark:
+                            id: "box_actions"
+                            size_hint: (1, 0.075)
+                            padding: (2,)
+                            BoxBgSlight:
+                                padding: (2,)
+                                BoxBgDark:
+                                    padding:(2,)
+                                    Label:
+                                        id: lab_actions
+                        Label:
+                            color: 0,0,0,1
+                            text: "check outdated packets"
+                            size_hint:(1,0.1)
+                        ActionGrid:
+                            ButRound:
+                                text: "check outdatet"
+                                on_release: root.get_outdated_pips()
+                            ButHelp:
+                                on_press: app.show_help(app.act_lab_txt["help_1"][app.act_lang])
+                        Label:
+                            color: 0,0,0,1
+                            text: "check outdated packets"
+                            size_hint:(1,0.1)
+                        ActionGrid:
+                            ButRound:
+                                text: "list packets"
+                                on_release: root.get_installed_pips()
+                            ButHelp:
+                                on_press: app.show_help('Beschreibung der Funktion2')
+                        BoxBgDark:
+                            size_hint: (1, 0.9)
+
+                    BoxBgDark:
+                        id: "box_right"
+                        orientation: "vertical"
+                        padding: (4,)
+                        BoxBgLight:
+                            id: "box_packets_title"
+                            size_hint: (1, 0.075)
+                            padding: (2,)
+                            BoxBgDark:
+                                padding: (2,)
+                                BoxBgSlight:
+                                    padding: (2,)
+                                    spacing: 2
+                                    BoxBgDark:
+                                        orientation: "vertical"
+                                        Label:
+                                            text: "Package"
+                                    BoxBgDark:
+                                        size_hint: (0.3, 1)
+                                        Label:
+                                            text: "Version"
+                                    BoxBgDark:
+                                        size_hint: (0.3, 1)
+                                        Label:
+                                            text: "Latest"
+                                    BoxBgDark:
+                                        size_hint: (0.3, 1)
+                                        Label:
+                                            text: "Type"
+                        BoxBgLight:
+                            name: "box_output"
+                            padding: (2,)
+                            spacing:2
+                            BoxBgDark:
+                                padding: (2,)
+                                BoxBgSlight:
+                                    padding: (2,)
+                                    BoxBgDark:
+                                        LinkLabel:
+                                            id: lab_output
+
+            BoxBgDark:
+                id: box_bottom
+                padding: (2,)
+                size_hint: (1, 0.05)
+                Logo:
+                BoxBgDark:
+                BoxBgDark:
+                ButRound:
+                    id: but_sett
+                    on_release: app.change_scr("left", "scr_sett")
+
