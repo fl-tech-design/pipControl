@@ -1,3 +1,4 @@
 venv/
+temp_files/installed_packs.txt
+temp_files/outdated_packs.txt
 .idea/
-temp_files/

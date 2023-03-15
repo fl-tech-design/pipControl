@@ -14,18 +14,18 @@ Builder.load_file("kv_files/scr_main.kv")
 Builder.load_file("kv_files/scr_sett.kv")
 Builder.load_file('kv_files/pop_help.kv')
 
+
 def load_inst_pack_list():
     with open("temp_files/installed_packs.txt", "r") as f:
-        next(f)
-        next(f)
         temp_packet_list = f.readlines()
     return temp_packet_list
+
 
 class LinkLabel(Label):
     def on_ref_press(self, instance):
         print(f"Link clicked! Value: {instance}")  # Hier können Sie Ihre Funktion aufrufen
-        #command = ['pip', "install", "--upgrade", instance]
-        #output = subprocess.check_output(command)
+        # command = ['pip', "install", "--upgrade", instance]
+        # output = subprocess.check_output(command)
 
 
 class HelpPopup(Popup):
@@ -36,6 +36,19 @@ class HelpPopup(Popup):
         self.popup_message = popup_message
 
 
+def set_installed_packs():
+    li_packs = load_inst_pack_list()
+    p_names, p_versions = [], []
+    for element in li_packs:
+        full_package = element.split()
+        p_names.append(full_package[0])
+        p_versions.append(full_package[1])
+
+    packets_dict = {"p_name": p_names, "p_vers": p_versions}
+
+    app.json_data["app_data"]["installed_packs"] = packets_dict
+    with open("app_data.json", "w") as f:
+        json.dump(app.json_data, f)
 
 
 class ScrMain(Screen):
@@ -60,34 +73,15 @@ class ScrMain(Screen):
     def get_installed_pips(self):
         command = ['pip', "list"]
         output = subprocess.check_output(command)
-        print("output: ", output)
+        out_str = output.decode('utf-8')
+        print("output: ", out_str)
         if output.strip():
             with open('temp_files/installed_packs.txt', 'w') as f:
-                f.write(output.decode('utf-8'))
+                f.write(out_str)
         else:
             with open('temp_files/installed_packs.txt', 'w') as f:
                 f.write("Es gibt keine veralteten Pakete.")
-        print(output.decode("utf-8"))
-        self.set_installed_packs()
-
-    def set_installed_packs(self):
-        li_packs = load_inst_pack_list()
-        p_names, p_versions = [], []
-        p_dict = {}
-        for element in li_packs:
-            full_package = element.split()
-            p_names.append(full_package[0])
-            p_versions.append(full_package[1])
-        print(p_names)
-        print(p_versions)
-
-        packets_dict = {"p_name": p_names, "p_vers": p_versions}
-
-        # Liste für neue Daten
-
-        app.json_data["app_data"]["installed_packs"] = packets_dict
-        with open("app_data.json", "w") as f:
-            json.dump(app.json_data, f)
+        set_installed_packs()
 
     def get_outdated_pips(self):
         command = ['pip', "list", "--outdated"]
