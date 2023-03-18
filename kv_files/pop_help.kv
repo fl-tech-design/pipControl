@@ -1,0 +1,16 @@
+<HelpPopup>:
+    title: app.act_lab_txt["help"][app.act_lang]
+    background_color: 0,0,0,0.5
+    size_hint: None, None
+    size: 500, 200
+    BoxBgDark:
+        orientation: 'vertical'
+        padding: 10
+        Label:
+            text: root.popup_message
+            font_size: '16sp'
+        ButRound:
+            text: 'OK'
+            size_hint_y: None
+            height: 40
+            on_release: root.dismiss()
