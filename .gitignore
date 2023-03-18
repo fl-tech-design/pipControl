@@ -1,4 +1,4 @@
 venv/
-temp_files/installed_packs.txt
-temp_files/outdated_packs.txt
+temp_files/
 .idea/
+test_file.py

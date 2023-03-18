@@ -9,6 +9,15 @@
 <LinkLabel>:
     markup: True
 
+<LabDark@Label>:
+    canvas.before:
+        Color:
+            rgba: bg_light
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: 0,0,0,1
+
 <Logo@Image>:
     source: "pics/logo-fl-tech.png"
     size_hint: (1,1)
