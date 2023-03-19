@@ -56,7 +56,7 @@
                             ButRound:
                                 text: "list outdated"
                                 on_release:
-                                    root.but_installed_func()
+                                    root.but_outdated_func()
                             ButHelp:
                                 on_press: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
                         BoxBgDark:
@@ -81,17 +81,19 @@
                                         spacing: 2
                                         BoxBgSlight:
                                             padding: (2,)
-                                            size_hint: (1, 0.1)
+                                            size_hint: (1, 0.05)
                                             BoxBgDark:
                                                 Label:
                                                     text: "Package"
                                         BoxBgDark:
-                                            id: box_pack_names
+                                            id: box_scr_view
+                                            size_hint: (1, 0.5)
                                             ScrollView:
-                                                id: scroll
-                                                GridLayout:
-                                                    id: grid
-                                                    cols: 1
+                                                id: scr_view
+                                                size_hint: (1, 1)
+                                                BoxBgDark:
+                                                    orientation: "vertical"
+                                                    id: box_pack_names
                                                     size_hint_y: 0.5
                                     BoxBgDark:
                                         orientation: "vertical"

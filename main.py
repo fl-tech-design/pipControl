@@ -16,21 +16,27 @@ Builder.load_file("kv_files/scr_sett.kv")
 Builder.load_file('kv_files/pop_help.kv')
 
 
-def load_inst_pack_list():
-    with open("temp_files/installed_packs.txt", "r") as f:
+def load_pack_list(f_name):
+    with open(f_name, "r") as f:
         temp_packet_list = f.readlines()
     return temp_packet_list
 
 
-def ret_package_name():
-    package_list = load_inst_pack_list()
-    p_list_split, p_name_list = [], []
+def ret_package_data(f_name, select_data):
+    package_list = load_pack_list(f_name)
+    p_list_split, p_name_list, p_vers_list = [], [], []
+
     i = 0
     for item in package_list:
         p_list_split.append(item.split())
         p_name_list.append(p_list_split[i][0])
+        p_vers_list.append(p_list_split[i][1])
         i += 1
-    return p_name_list
+    if select_data == "name":
+        return p_name_list
+    if select_data == "vers":
+        return p_vers_list
+
 
 class LinkLabel(Label):
     def on_ref_press(self, instance):
@@ -58,36 +64,53 @@ class ScrMain(Screen):
 
     def upd_scr_main(self, *args):
         self.args_scr_one = args
-        self.packet_list = load_inst_pack_list()
-        self.len_packet_list = len(self.packet_list)
 
         self.ids.lab_actions.text = app.act_lab_txt["actions"][app.act_lang]
         self.ids.but_sett.text = app.act_lab_txt["settings"][app.act_lang]
 
-    def create_buttons(self):
-        ret_package_name()
-        button_texts = ret_package_name()
-        self.ids.grid.clear_widgets()  # Lösche alle vorhandenen Buttons aus dem Gitter
-        for text in button_texts:
-            label = Label(text=text)
-            self.ids.grid.add_widget(label)
+    def create_packet_labels(self, package_data_list, pack_stat):
+        lab_texts = package_data_list
+        print(len(lab_texts))
+        self.ids.box_pack_names.clear_widgets()
+        for text in lab_texts:
+            label_p_name = LinkLabel()
+            if pack_stat == "outdated":
+                label_p_name.markup = True
+                label_p_name.text = f"[ref={text}][color=#0000ff]{text}[/color][/ref]"
+            else:
+                label_p_name.markup = False
+                label_p_name.text = f"{text}"
 
-    def but_outd_func(self):
-        self.create_buttons()
+            self.ids.box_pack_names.add_widget(label_p_name)
+
+    def but_outdated_func(self):
+        self.get_pips("outdated")
+        p_name = ret_package_data("temp_files/outdated_packs.txt", "name")
+
+        self.create_packet_labels(p_name, "outdated")
 
     def but_installed_func(self):
-        self.get_installed_pips()
-        self.create_buttons()
+        self.get_pips("installed")
+        p_name = ret_package_data("temp_files/installed_packs.txt", "name")
+        p_vers = ret_package_data("temp_files/installed_packs.txt", "vers")
+        self.create_packet_labels(p_name, "installed")
 
-    def get_installed_pips(self):
+    def get_pips(self, which_pip):
         try:
-            command = ['pip', 'list']
+            if which_pip == "outdated":
+                command = ['pip', 'list', '--outdated']
+                f_name = 'outdated_packs.txt'
+                print("outdate")
+            else:
+                command = ['pip', 'list']
+                f_name = 'installed_packs.txt'
+                print("installle")
             output = subprocess.check_output(command)
             output_str = output.decode('utf-8')
             lines = output_str.split('\n')[2:]
             output_str = '\n'.join(lines)
 
-            with open(os.path.join('temp_files', 'installed_packs.txt'), 'w') as f:
+            with open(os.path.join('temp_files', f_name), 'w') as f:
                 f.write(output_str)
 
         except subprocess.CalledProcessError as e:
