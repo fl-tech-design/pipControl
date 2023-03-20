@@ -45,7 +45,7 @@ class LinkLabel(Label):
         # output = subprocess.check_output(command)
 
 
-class HelpPopup(Popup):
+class InfoPopup(Popup):
     popup_message = StringProperty('')  # The text to display in the popup message
 
     def __init__(self, popup_message, **kwargs):
@@ -65,28 +65,32 @@ class ScrMain(Screen):
     def upd_scr_main(self, *args):
         self.args_scr_one = args
 
-        self.ids.lab_actions.text = app.act_lab_txt["actions"][app.act_lang]
+        self.ids.lab_actions_title.text = app.act_lab_txt["actions"][app.act_lang]
+        self.ids.lab_output_title.text = app.act_lab_txt["output"][app.act_lang]
+        self.ids.lab_list_installed_packs.text = app.act_lab_txt["list installed packets"][app.act_lang]
+
         self.ids.but_sett.text = app.act_lab_txt["settings"][app.act_lang]
 
     def create_packet_labels(self, package_data_list, pack_stat):
         lab_texts = package_data_list
-        print(len(lab_texts))
         self.ids.box_pack_names.clear_widgets()
         for text in lab_texts:
             label_p_name = LinkLabel()
+            label_p_name.height = "15sp"
+            label_p_name.size_hint = (1, None)
             if pack_stat == "outdated":
                 label_p_name.markup = True
                 label_p_name.text = f"[ref={text}][color=#0000ff]{text}[/color][/ref]"
             else:
                 label_p_name.markup = False
                 label_p_name.text = f"{text}"
-
             self.ids.box_pack_names.add_widget(label_p_name)
+        print(self.ids.box_pack_names.size[1])
+        print(self.ids.scroll_view.size[1])
 
     def but_outdated_func(self):
         self.get_pips("outdated")
         p_name = ret_package_data("temp_files/outdated_packs.txt", "name")
-
         self.create_packet_labels(p_name, "outdated")
 
     def but_installed_func(self):
@@ -154,10 +158,14 @@ class MainApp(App):
         super().__init__(**kwargs)
         self.json_data = {}
         self.scr_man, self.scr_main, self.scr_sett = (None,) * 3
-        self.get_json_data()
+        self.load_json_data()
         self.app_data = self.json_data["app_data"]
         self.act_lang = self.app_data["act_lang"]
         self.act_lab_txt = self.json_data["lab_txt"]
+
+        self.act_b_col_n = self.app_data["colors"][self.app_data["act_col_n"]]
+        print(self.act_b_col_n)
+        self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
 
     def build(self):
         self.title = "pip Control"
@@ -177,13 +185,15 @@ class MainApp(App):
 
         return self.scr_man
 
-    def get_json_data(self):
+    def load_json_data(self):
         with open("app_data.json", "r") as f:
             a_data = json.load(f)
         self.json_data = a_data
         self.app_data = self.json_data["app_data"]
         self.act_lang = self.app_data["act_lang"]
         self.act_lab_txt = self.json_data["lab_txt"]
+        self.act_b_col_n = self.app_data["act_col_n"]
+        self.act_b_col_d = self.app_data["act_col_d"]
 
     def change_scr(self, trans, new_scr):
         self.scr_man.transition.direction = trans
@@ -195,12 +205,12 @@ class MainApp(App):
         data["app_data"]["act_lang"] = new_lang
         with open("app_data.json", "w") as f:
             json.dump(data, f)
-        self.get_json_data()
+        self.load_json_data()
 
     def show_popup(self, popup_msg, tit="h"):
-        popup = HelpPopup(popup_message=popup_msg)
+        popup = InfoPopup(popup_message=popup_msg)
         if tit == "h":
-            popup.title = self.act_lab_txt["help_2"][self.act_lang]
+            popup.title = self.act_lab_txt["help"][self.act_lang]
         else:
             popup.title = self.act_lab_txt["information"][self.act_lang]
 

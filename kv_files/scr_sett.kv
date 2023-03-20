@@ -9,7 +9,8 @@
             padding:5,5,5,5
             spacing:5
             BoxBgDark:
-                size_hint: (1, 0.1)
+                height: "30sp"
+                size_hint: (1, None)
                 Label:
                     id: tit_sett
                     font_size: "23sp"
@@ -108,9 +109,12 @@
             BoxBgDark:
                 id: box_bott_sett
                 padding: (2,)
-                size_hint: (1, 0.05)
+                height: "25sp"
+                size_hint: (1, None)
                 ButRound:
                     id: but_back
+                    width: "150sp"
+                    size_hint: (None, 1)
                     on_release: app.change_scr("right", "scr_main")
                 BoxBgDark:
                 BoxBgDark:
