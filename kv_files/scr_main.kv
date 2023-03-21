@@ -2,30 +2,39 @@
     BoxBgDark:
         id: "box_0"
         orientation: "vertical"
-        padding: 5,5,5,5
+        padding: (3,)
         BoxBgLight:
             id: "box_1"
             orientation: "vertical"
-            padding:5,5,5,5
-            spacing:5
+            padding:(4,)
+            spacing:4
             BoxBgDark:
-                id: "box_title"
-                height: "30sp"
+                name: "box_title"
+                height: "32sp"
                 size_hint: (1, None)
-                Label:
-                    text: "pip Control Center"
-                    font_size: "23sp"
+                BoxBgSlight:
+                    padding: (2,)
+                    BoxBgDark:
+                        padding: (2,)
+                        BoxBgLight:
+                            padding: (2,)
+                            BoxBgDark:
+                                Label:
+                                    text: "pip Control Center"
+                                    font_size: "18sp"
+                                    color: 1,1,1,0.5
 
             BoxBgDark:
-                id: "box_middle"
-                padding: (10,)
+                name: "box_middle"
+                padding: (4,)
                 BoxBgLight:
                     padding: (2,)
                     spacing: 4
                     BoxBgSlight:
                         orientation: "vertical"
-                        width: "200sp"
+                        width: "240sp"
                         size_hint: (None, 1)
+                        padding: (2,)
                         spacing: 4
                         BoxBgDark:
                             id: "box_actions"
@@ -33,70 +42,91 @@
                             size_hint: (1, None)
                             BoxBgSlight:
                                 BoxBgDark:
-                                    Label:
-                                        id: lab_actions_title
-                                        color: 1,1,1,0.5
-                                        font_size: "20sp"
-                        LabDark:
-                            id: lab_list_installed_packs
-                        ActionGrid:
-                            height: "60sp"
-                            size_hint: (1, None)
-                            padding: (4,)
-                            spacing: 10
-                            ButRound:
-                                width: "130sp"
+                                    padding: (4,)
+                                    BoxBgLight:
+                                        padding: (2,)
+                                        BoxBgDark:
+                                            Label:
+                                                id: lab_actions_title
+                                                color: 1,1,1,0.5
+                                                font_size: "20sp"
+                        BoxBgDark:
+                            height: "30sp"
+                            size_hint:(1,None)
+                            LabDark:
+                                id: lab_list_installed
+                        GridActions:
+                            BoxBgDark:
+                                padding: (4,12,0,12)
+                                ButRound:
+                                    id: but_show_inst_packs
+                                    on_release: root.but_package_func("installed")
+
+                            BoxBgDark:
+                                width: "60sp"
                                 size_hint: (None, 1)
-                                text: "list packets"
-                                on_release: root.but_installed_func()
-                            ButHelp:
-                                width: "52sp"
+                                padding: (15,)
+                                ButHelp:
+                                    on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
+                        BoxBgDark:
+                            height: "30sp"
+                            size_hint:(1,None)
+                            LabDark:
+                                id: lab_list_outdated
+                        GridActions:
+                            BoxBgDark:
+                                padding: (4,12,0,12)
+                                ButRound:
+                                    id: but_show_outd_packs
+                                    on_release: root.but_package_func("outdated")
+                            BoxBgDark:
+                                width: "60sp"
                                 size_hint: (None, 1)
-                                on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
-                        LabDark:
-                            id: lab_list_outdated
-                            text: "list outdated packets"
-                        ActionGrid:
-                            height: "60sp"
-                            size_hint: (1, None)
-                            padding: (4,)
-                            spacing: 10
-                            ButRound:
-                                text: "list outdated"
-                                on_release:
-                                    root.but_outdated_func()
-                            ButHelp:
-                                on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
+                                padding: (15,)
+                                ButHelp:
+                                    on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
                         BoxBgDark:
 
                     BoxBgSlight:
                         name: "box_output"
                         orientation: "vertical"
-                        padding: 5,5,5,5
+                        padding: (2,)
                         BoxBgSlight:
                             name: "box_output_title"
                             height: "45sp"
                             size_hint: (1, None)
                             padding: 0,0,0,3
                             BoxBgDark:
-                                BoxBgSlight:
+                                padding: (4,)
+                                BoxBgLight:
+                                    padding: (2,)
                                     BoxBgDark:
                                         orientation: "vertical"
                                         BoxBgSlight:
                                             BoxBgDark:
                                                 Label:
                                                     id: lab_output_title
+                                                    color: 1,1,1,0.5
                                                     font_size: "20sp"
+                                                    halign: "left"
                         BoxBgDark:
-                            BoxBgDark:
+                            orientation: "vertical"
+                            padding: (2,)
+                            BoxBgLight:
                                 id: box_scr_view
                                 ScrollView:
                                     id: scroll_view
                                     do_scroll_y: True
-                                BoxBgDark:
-                                    id: box_pack_names
-                                    orientation: "vertical"
                                     size_hint: (1, None)
+                                    LinkLabel:
+                                        id: lab_scroll_view
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        text_size: self.width, None
+                                        padding: 10, 10
+                                        markup: True
+                            BoxBgDark:
+                                size_hint: (1, 1)
 
             BoxBgDark:
                 id: box_bottom

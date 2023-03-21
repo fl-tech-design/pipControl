@@ -4,26 +4,7 @@
 #: set bg_slight (35/255, 35/255, 35/255, 1)
 #: set bg_but_help_n (5/255, 5/255, 5/255, 0.3)
 
-<LinkLabel>:
-    markup: True
-
-<LabDark@Label>:
-    canvas.before:
-        Color:
-            rgba: bg_dark
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    color: 1,1,1,0.5
-    height: "30sp"
-    size_hint:(1,None)
-
-<Logo@Image>:
-    source: "pics/logo-fl-tech.png"
-    size_hint: (1,1)
-
 <ButRound@Button>:
-    background_color: 0,0,0,0
     canvas.before:
         Color:
             rgba: app.act_b_col_n if self.state == 'normal' else app.act_b_col_d
@@ -31,6 +12,8 @@
             size: self.size
             pos: self.pos
             radius: (15,)
+    color: 1,1,1,0.5
+    background_color: 0,0,0,0
 
 <ButHelp@Button>:
     canvas.before:
@@ -46,7 +29,34 @@
 <ButLanguage@Button>:
     background_color: 0,0,0,0
 
-<ActionGrid@GridLayout>:
+<LinkLabel>:
+    canvas.before:
+        Color:
+            rgba: 0,0,0,0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: 1,1,1,0.7
+    height: "25sp"
+    size_hint: (1, None)
+    font_size: "15sp"
+
+
+<LabDark@Label>:
+    canvas.before:
+        Color:
+            rgba: bg_dark
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: 1,1,1,0.5
+
+<Logo@Image>:
+    source: "pics/logo-fl-tech.png"
+    size_hint: (1,1)
+
+
+<GridActions@GridLayout>:
     canvas.before:
         Color:
             rgba: bg_dark
@@ -54,6 +64,8 @@
             size: self.size
             pos: self.pos
     cols: 2
+    height: "60sp"
+    size_hint: (1, None)
 
 
 <BoxBgTest@BoxLayout>:

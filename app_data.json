@@ -1,1 +1,183 @@
-{"app_data": {"act_lang": "de", "act_col_n": "purple_n", "act_col_d": "purple_d", "colors": {"purple_d": [0.094, 0.062, 0.239, 0.3], "purple_n": [0.094, 0.062, 0.239, 1]}}, "lab_txt": {"abort": {"en": "Abort", "de": "Abbrechen", "fr": "Avorter", "es": "Abortar", "it": "Abortire", "gr": "\u0394\u03b9\u03b1\u03ba\u03bf\u03c0\u03ae"}, "actions": {"en": "Actions:", "de": "Aktionen:", "fr": "Actions:", "es": "Acciones", "it": "Azioni", "gr": "\u03b5\u03bd\u03ad\u03c1\u03b3\u03b5\u03b9\u03b5\u03c2"}, "back": {"en": "back", "de": "zur\u00fcck", "fr": "pr\u00e9c\u00e9dent", "es": "atr\u00e1s", "it": "indietro", "gr": "\u03c0\u03bb\u03ac\u03c4\u03b7"}, "check outdated packets": {"en": "Check outdated packets", "de": "Veraltete Pakete \u00fcberpr\u00fcfen", "fr": "V\u00e9rifier les paquets obsol\u00e8tes", "es": "Comprobar paquetes obsoletos", "it": "Controlla i pacchetti obsoleti", "gr": "\u0395\u03bb\u03ad\u03b3\u03be\u03c4\u03b5 \u03c4\u03b1 \u03c0\u03b1\u03bb\u03b9\u03ac \u03c0\u03b1\u03ba\u03ad\u03c4\u03b1"}, "english": {"en": "English", "de": "Englisch", "fr": "Anglais", "es": "Ingl\u00e9s", "it": "Inglese", "gr": "\u0391\u03b3\u03b3\u03bb\u03b9\u03ba\u03ac"}, "french": {"en": "French", "de": "Franz\u00f6sisch", "fr": "Fran\u00e7ais", "es": "Franc\u00e9s", "it": "Francese", "gr": "\u0393\u03b1\u03bb\u03bb\u03b9\u03ba\u03ac"}, "german": {"en": "German", "de": "Deutsch", "fr": "Allemand", "es": "Alem\u00e1n", "it": "Tedesco", "gr": "\u0393\u03b5\u03c1\u03bc\u03b1\u03bd\u03b9\u03ba\u03ac"}, "greek": {"en": "Greek", "de": "Griechisch", "fr": "Grec", "es": "Griego", "it": "Greco", "gr": "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac"}, "help": {"en": "help", "de": "Hilfe", "fr": "Aide", "es": "Ayuda", "it": "Guida", "gr": "\u0392\u03bf\u03ae\u03b8\u03b5\u03b9\u03b1"}, "help_1": {"en": "This button triggers the command 'pip list --outdated'", "de": "Dieser Button l\u00f6st den Befehl 'pip list --outdated' aus", "fr": "Ce bouton d\u00e9clenche la commande 'pip list --outdated'", "es": "Este bot\u00f3n activa el comando 'pip list --outdated'", "it": "Questo pulsante attiva il comando 'pip list --outdated'", "gr": "\u0391\u03c5\u03c4\u03cc \u03c4\u03bf \u03ba\u03bf\u03c5\u03bc\u03c0\u03af \u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b5\u03af \u03c4\u03b7\u03bd \u03b5\u03bd\u03c4\u03bf\u03bb\u03ae 'pip list --outdated'"}, "help_2": {"en": "This button triggers the command 'pip list'", "de": "Dieser Button l\u00f6st den Befehl 'pip list' aus", "fr": "Ce bouton d\u00e9clenche la commande 'pip list'", "es": "Este bot\u00f3n activa el comando 'pip list'", "it": "Questo pulsante attiva il comando 'pip list'", "gr": "\u0391\u03c5\u03c4\u03cc \u03c4\u03bf \u03ba\u03bf\u03c5\u03bc\u03c0\u03af \u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b5\u03af \u03c4\u03b7\u03bd \u03b5\u03bd\u03c4\u03bf\u03bb\u03ae 'pip list'"}, "italian": {"en": "Italian", "de": "Italienisch", "fr": "Italien", "es": "Italiano", "it": "Italiano", "gr": "\u0399\u03c4\u03b1\u03bb\u03b9\u03ba\u03ac"}, "information": {"en": "Information", "de": "Information", "fr": "Information", "es": "Informaci\u00f3n", "it": "Informazione", "gr": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b1"}, "language": {"en": "Language:", "de": "Sprache:", "fr": "Langue:", "es": "Idioma", "it": "Lingua", "gr": "\u0393\u03bb\u03ce\u03c3\u03c3\u03b1"}, "list installed packets": {"en": "List installed packets", "de": "Installierte Pakete auflisten", "fr": "Liste des paquets install\u00e9s", "es": "Lista de paquetes instalados", "it": "Elenca i pacchetti installati", "gr": "\u039b\u03af\u03c3\u03c4\u03b1 \u03b5\u03b3\u03ba\u03b1\u03c4\u03b5\u03c3\u03c4\u03b7\u03bc\u03ad\u03bd\u03c9\u03bd \u03c0\u03b1\u03ba\u03ad\u03c4\u03c9\u03bd"}, "output": {"en": "Output", "de": "Ausgabe", "fr": "Sortie", "es": "Salida", "it": "Uscita", "gr": "\u03ad\u03be\u03bf\u03b4\u03bf\u03c2"}, "spanish": {"en": "Spanish", "de": "Spanisch", "fr": "Espagnol", "es": "Espa\u00f1ol", "it": "Spagnolo", "gr": "\u0399\u03c3\u03c0\u03b1\u03bd\u03b9\u03ba\u03ac"}, "settings": {"en": "Settings", "de": "Einstellungen", "fr": "Param\u00e8tres", "es": "Configuraci\u00f3n", "it": "Impostazioni", "gr": "\u03a1\u03c5\u03b8\u03bc\u03af\u03c3\u03b5\u03b9\u03c2"}}}
+{
+  "app_data": {
+    "act_lang": "de",
+    "act_col_n": "purple_n",
+    "act_col_d": "purple_d",
+    "colors": {
+      "purple_d": [
+        0.094,
+        0.062,
+        0.239,
+        0.3
+      ],
+      "purple_n": [
+        0.094,
+        0.062,
+        0.239,
+        1
+      ]
+    }
+  },
+  "lab_txt": {
+    "abort": {
+      "en": "Abort",
+      "de": "Abbrechen",
+      "fr": "Avorter",
+      "es": "Abortar",
+      "it": "Abortire",
+      "gr": "\u0394\u03b9\u03b1\u03ba\u03bf\u03c0\u03ae"
+    },
+    "actions": {
+      "en": "Actions",
+      "de": "Aktionen",
+      "fr": "Actions",
+      "es": "Acciones",
+      "it": "Azioni",
+      "gr": "\u03b5\u03bd\u03ad\u03c1\u03b3\u03b5\u03b9\u03b5\u03c2"
+    },
+    "back": {
+      "en": "back",
+      "de": "zur\u00fcck",
+      "fr": "pr\u00e9c\u00e9dent",
+      "es": "atr\u00e1s",
+      "it": "indietro",
+      "gr": "\u03c0\u03bb\u03ac\u03c4\u03b7"
+    },
+    "check outdated packets": {
+      "en": "Check outdated packets",
+      "de": "Veraltete Pakete \u00fcberpr\u00fcfen",
+      "fr": "V\u00e9rifier les paquets obsol\u00e8tes",
+      "es": "Comprobar paquetes obsoletos",
+      "it": "Controlla i pacchetti obsoleti",
+      "gr": "\u0395\u03bb\u03ad\u03b3\u03be\u03c4\u03b5 \u03c4\u03b1 \u03c0\u03b1\u03bb\u03b9\u03ac \u03c0\u03b1\u03ba\u03ad\u03c4\u03b1"
+    },
+    "english": {
+      "en": "English",
+      "de": "Englisch",
+      "fr": "Anglais",
+      "es": "Ingl\u00e9s",
+      "it": "Inglese",
+      "gr": "\u0391\u03b3\u03b3\u03bb\u03b9\u03ba\u03ac"
+    },
+    "french": {
+      "en": "French",
+      "de": "Franz\u00f6sisch",
+      "fr": "Fran\u00e7ais",
+      "es": "Franc\u00e9s",
+      "it": "Francese",
+      "gr": "\u0393\u03b1\u03bb\u03bb\u03b9\u03ba\u03ac"
+    },
+    "german": {
+      "en": "German",
+      "de": "Deutsch",
+      "fr": "Allemand",
+      "es": "Alem\u00e1n",
+      "it": "Tedesco",
+      "gr": "\u0393\u03b5\u03c1\u03bc\u03b1\u03bd\u03b9\u03ba\u03ac"
+    },
+    "greek": {
+      "en": "Greek",
+      "de": "Griechisch",
+      "fr": "Grec",
+      "es": "Griego",
+      "it": "Greco",
+      "gr": "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac"
+    },
+    "help": {
+      "en": "help",
+      "de": "Hilfe",
+      "fr": "Aide",
+      "es": "Ayuda",
+      "it": "Guida",
+      "gr": "\u0392\u03bf\u03ae\u03b8\u03b5\u03b9\u03b1"
+    },
+    "help_1": {
+      "en": "This button triggers the command 'pip list --outdated'",
+      "de": "Dieser Button l\u00f6st den Befehl 'pip list --outdated' aus",
+      "fr": "Ce bouton d\u00e9clenche la commande 'pip list --outdated'",
+      "es": "Este bot\u00f3n activa el comando 'pip list --outdated'",
+      "it": "Questo pulsante attiva il comando 'pip list --outdated'",
+      "gr": "\u0391\u03c5\u03c4\u03cc \u03c4\u03bf \u03ba\u03bf\u03c5\u03bc\u03c0\u03af \u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b5\u03af \u03c4\u03b7\u03bd \u03b5\u03bd\u03c4\u03bf\u03bb\u03ae 'pip list --outdated'"
+    },
+    "help_2": {
+      "en": "This button triggers the command 'pip list'",
+      "de": "Dieser Button l\u00f6st den Befehl 'pip list' aus",
+      "fr": "Ce bouton d\u00e9clenche la commande 'pip list'",
+      "es": "Este bot\u00f3n activa el comando 'pip list'",
+      "it": "Questo pulsante attiva il comando 'pip list'",
+      "gr": "\u0391\u03c5\u03c4\u03cc \u03c4\u03bf \u03ba\u03bf\u03c5\u03bc\u03c0\u03af \u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b5\u03af \u03c4\u03b7\u03bd \u03b5\u03bd\u03c4\u03bf\u03bb\u03ae 'pip list'"
+    },
+    "italian": {
+      "en": "Italian",
+      "de": "Italienisch",
+      "fr": "Italien",
+      "es": "Italiano",
+      "it": "Italiano",
+      "gr": "\u0399\u03c4\u03b1\u03bb\u03b9\u03ba\u03ac"
+    },
+    "information": {
+      "en": "Information",
+      "de": "Information",
+      "fr": "Information",
+      "es": "Informaci\u00f3n",
+      "it": "Informazione",
+      "gr": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b1"
+    },
+    "language": {
+      "en": "Language:",
+      "de": "Sprache:",
+      "fr": "Langue:",
+      "es": "Idioma",
+      "it": "Lingua",
+      "gr": "\u0393\u03bb\u03ce\u03c3\u03c3\u03b1"
+    },
+    "list installed packets": {
+      "en": "List installed packets",
+      "de": "Installierte Pakete anzeigen",
+      "fr": "Liste des paquets install\u00e9s",
+      "es": "Lista de paquetes instalados",
+      "it": "Elenca i pacchetti installati",
+      "gr": "\u039b\u03af\u03c3\u03c4\u03b1 \u03b5\u03b3\u03ba\u03b1\u03c4\u03b5\u03c3\u03c4\u03b7\u03bc\u03ad\u03bd\u03c9\u03bd \u03c0\u03b1\u03ba\u03ad\u03c4\u03c9\u03bd"
+    },
+    "list outdated packets": {
+      "en": "Show upgradeable packages",
+      "de": "Aktualisierbare Pakete anzeigen",
+      "fr": "Afficher les paquets actualisables",
+      "es": "Ver paquetes actualizables",
+      "it": "Mostra pacchetti aggiornabili",
+      "gr": "\u0395\u03bc\u03c6\u03ac\u03bd\u03b9\u03c3\u03b7 \u03b1\u03bd\u03b1\u03bd\u03b5\u03ce\u03c3\u03b9\u03bc\u03c9\u03bd \u03c0\u03b1\u03ba\u03ad\u03c4\u03c9\u03bd"
+    },
+    "output": {
+      "en": "Output",
+      "de": "Ausgabe",
+      "fr": "Sortie",
+      "es": "Salida",
+      "it": "Uscita",
+      "gr": "\u03ad\u03be\u03bf\u03b4\u03bf\u03c2"
+    },
+    "show packs": {
+      "en": "Show packages",
+      "de": "Pakete anzeigen",
+      "fr": "Afficher les paquets",
+      "es": "Ver paquetes",
+      "it": "Mostra i pacchetti",
+      "gr": "\u03a0\u03c1\u03bf\u03b2\u03bf\u03bb\u03ae \u03c0\u03b1\u03ba\u03ad\u03c4\u03c9\u03bd"
+    },
+    "spanish": {
+      "en": "Spanish",
+      "de": "Spanisch",
+      "fr": "Espagnol",
+      "es": "Espa\u00f1ol",
+      "it": "Spagnolo",
+      "gr": "\u0399\u03c3\u03c0\u03b1\u03bd\u03b9\u03ba\u03ac"
+    },
+    "settings": {
+      "en": "Settings",
+      "de": "Einstellungen",
+      "fr": "Param\u00e8tres",
+      "es": "Configuraci\u00f3n",
+      "it": "Impostazioni",
+      "gr": "\u03a1\u03c5\u03b8\u03bc\u03af\u03c3\u03b5\u03b9\u03c2"
+    }
+  }
+}

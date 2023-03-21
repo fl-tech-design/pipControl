@@ -17,32 +17,47 @@ Builder.load_file('kv_files/pop_help.kv')
 
 
 def load_pack_list(f_name):
+    if f_name == "outdated":
+        f_name = "temp_files/outdated_packs.txt"
+    else:
+        f_name = "temp_files/installed_packs.txt"
+
     with open(f_name, "r") as f:
         temp_packet_list = f.readlines()
     return temp_packet_list
 
 
-def ret_package_data(f_name, select_data):
-    package_list = load_pack_list(f_name)
-    p_list_split, p_name_list, p_vers_list = [], [], []
+def set_output_txt(pip_command):
+    # clear output.txt file
+    tab = "            "
+    with open(os.path.join('temp_files', "output.txt"), 'w') as f:
+        f.write(f"[b]Package:[/b]{tab * 2}[b]Version:[/b]{tab}[b]Latest:[/b]{tab}[b]Type:[/b]\n")
+    p_list = load_pack_list(pip_command)
+    for i in range(len(p_list)):
+        li_split = p_list[i].split()
+        if pip_command == "outdated":
+            with open(os.path.join('temp_files', "output.txt"), 'a') as f:
+                f.write(
+                    f"[ref={li_split[0]}]{li_split[0]}:[/ref]{tab * 3}{li_split[1]}{tab}{li_split[2]}{tab}{li_split[3]}{tab}\n")
 
-    i = 0
-    for item in package_list:
-        p_list_split.append(item.split())
-        p_name_list.append(p_list_split[i][0])
-        p_vers_list.append(p_list_split[i][1])
-        i += 1
-    if select_data == "name":
-        return p_name_list
-    if select_data == "vers":
-        return p_vers_list
+
+def load_output_text():
+    with open(os.path.join('temp_files', "output.txt"), 'r') as f:
+        output_text = f.read()
+    return output_text
+
+
+def upgrade_pack(package_name):
+    com = ["pip", "install", "--upgrade", package_name]
+    subprocess.run(com)
+    
+
 
 
 class LinkLabel(Label):
     def on_ref_press(self, instance):
-        print(f"Link clicked! Value: {instance}")  # Hier können Sie Ihre Funktion aufrufen
-        # command = ['pip', "install", "--upgrade", instance]
-        # output = subprocess.check_output(command)
+        app.act_package = instance
+        app.show_popup(f"möchten sie das paket {instance} upgraden?", "inst")
 
 
 class InfoPopup(Popup):
@@ -52,6 +67,10 @@ class InfoPopup(Popup):
         super().__init__(**kwargs)
         self.popup_message = popup_message
 
+    def but_yes_func(self):
+        print("yes button called")
+        print(app.act_package)
+        upgrade_pack(app.act_package)
 
 class ScrMain(Screen):
 
@@ -65,50 +84,28 @@ class ScrMain(Screen):
     def upd_scr_main(self, *args):
         self.args_scr_one = args
 
-        self.ids.lab_actions_title.text = app.act_lab_txt["actions"][app.act_lang]
-        self.ids.lab_output_title.text = app.act_lab_txt["output"][app.act_lang]
-        self.ids.lab_list_installed_packs.text = app.act_lab_txt["list installed packets"][app.act_lang]
+        self.ids.lab_actions_title.text = app.act_lab_txt["actions"][app.act_lang] + ":"
+        self.ids.lab_output_title.text = app.act_lab_txt["output"][app.act_lang] + ":"
+        self.ids.lab_list_installed.text = app.act_lab_txt["list installed packets"][app.act_lang]
+        self.ids.lab_list_outdated.text = app.act_lab_txt["list outdated packets"][app.act_lang]
 
+        self.ids.but_show_inst_packs.text = app.act_lab_txt["show packs"][app.act_lang]
+        self.ids.but_show_outd_packs.text = app.act_lab_txt["show packs"][app.act_lang]
         self.ids.but_sett.text = app.act_lab_txt["settings"][app.act_lang]
 
-    def create_packet_labels(self, package_data_list, pack_stat):
-        lab_texts = package_data_list
-        self.ids.box_pack_names.clear_widgets()
-        for text in lab_texts:
-            label_p_name = LinkLabel()
-            label_p_name.height = "15sp"
-            label_p_name.size_hint = (1, None)
-            if pack_stat == "outdated":
-                label_p_name.markup = True
-                label_p_name.text = f"[ref={text}][color=#0000ff]{text}[/color][/ref]"
-            else:
-                label_p_name.markup = False
-                label_p_name.text = f"{text}"
-            self.ids.box_pack_names.add_widget(label_p_name)
-        print(self.ids.box_pack_names.size[1])
-        print(self.ids.scroll_view.size[1])
+    def but_package_func(self, which_pip):
+        self.get_pips(which_pip)
+        self.create_packet_labels()
 
-    def but_outdated_func(self):
-        self.get_pips("outdated")
-        p_name = ret_package_data("temp_files/outdated_packs.txt", "name")
-        self.create_packet_labels(p_name, "outdated")
-
-    def but_installed_func(self):
-        self.get_pips("installed")
-        p_name = ret_package_data("temp_files/installed_packs.txt", "name")
-        p_vers = ret_package_data("temp_files/installed_packs.txt", "vers")
-        self.create_packet_labels(p_name, "installed")
-
-    def get_pips(self, which_pip):
+    @staticmethod
+    def get_pips(pip_com):
         try:
-            if which_pip == "outdated":
+            if pip_com == "outdated":
                 command = ['pip', 'list', '--outdated']
                 f_name = 'outdated_packs.txt'
-                print("outdate")
             else:
                 command = ['pip', 'list']
                 f_name = 'installed_packs.txt'
-                print("installle")
             output = subprocess.check_output(command)
             output_str = output.decode('utf-8')
             lines = output_str.split('\n')[2:]
@@ -116,23 +113,15 @@ class ScrMain(Screen):
 
             with open(os.path.join('temp_files', f_name), 'w') as f:
                 f.write(output_str)
-
+            set_output_txt(pip_com)
         except subprocess.CalledProcessError as e:
             # Fehlermeldung speichern
             with open(os.path.join('temp_files', 'error.txt'), 'w') as f:
                 f.write(str(e))
 
-    @staticmethod
-    def get_outdated_pips():
-        command = ['pip', "list", "--outdated"]
-        output = subprocess.check_output(command)
-        if output.strip():
-            with open('temp_files/outdated_packs.txt', 'w') as f:
-                f.write(output.decode('utf-8'))
-        else:
-            with open('temp_files/outdated_packs.txt', 'w') as f:
-                f.write("Es gibt keine veralteten Pakete.")
-        print(output.decode("utf-8"))
+    def create_packet_labels(self):
+        lab_texts = load_output_text()
+        self.ids.lab_scroll_view.text = lab_texts
 
 
 class ScrSett(Screen):
@@ -164,11 +153,11 @@ class MainApp(App):
         self.act_lab_txt = self.json_data["lab_txt"]
 
         self.act_b_col_n = self.app_data["colors"][self.app_data["act_col_n"]]
-        print(self.act_b_col_n)
         self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
+        self.act_package = ""
 
     def build(self):
-        self.title = "pip Control"
+        self.title = " "
         self.scr_man = ScreenManager()
 
         self.scr_main = ScrMain()
@@ -192,8 +181,8 @@ class MainApp(App):
         self.app_data = self.json_data["app_data"]
         self.act_lang = self.app_data["act_lang"]
         self.act_lab_txt = self.json_data["lab_txt"]
-        self.act_b_col_n = self.app_data["act_col_n"]
-        self.act_b_col_d = self.app_data["act_col_d"]
+        self.act_b_col_n = self.app_data["colors"][self.app_data["act_col_n"]]
+        self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
 
     def change_scr(self, trans, new_scr):
         self.scr_man.transition.direction = trans
@@ -211,6 +200,8 @@ class MainApp(App):
         popup = InfoPopup(popup_message=popup_msg)
         if tit == "h":
             popup.title = self.act_lab_txt["help"][self.act_lang]
+        elif tit == "inst":
+            popup.title = "Installation"
         else:
             popup.title = self.act_lab_txt["information"][self.act_lang]
 

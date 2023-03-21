@@ -9,8 +9,16 @@
         Label:
             text: root.popup_message
             font_size: '16sp'
-        ButRound:
-            text: 'OK'
-            size_hint_y: None
-            height: 40
-            on_release: root.dismiss()
+        BoxBgDark:
+            ButRound:
+                id: but_yes
+                text: 'OK'
+                size_hint_y: None
+                height: 40
+                on_release: root.but_yes_func()
+            ButRound:
+                id: but_no
+                text: 'cancel'
+                size_hint_y: None
+                height: 40
+                on_release: root.dismiss()
