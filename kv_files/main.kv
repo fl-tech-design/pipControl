@@ -68,6 +68,16 @@
     size_hint: (1, None)
 
 
+<Table>:
+    canvas.before:
+        Color:
+            rgba: bg_dark
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    cols: 4
+    spacing: 10
+
 <BoxBgTest@BoxLayout>:
     canvas.before:
         Color:

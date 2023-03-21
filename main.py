@@ -6,6 +6,7 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import StringProperty
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen, ScreenManager
@@ -16,42 +17,47 @@ Builder.load_file("kv_files/scr_sett.kv")
 Builder.load_file('kv_files/pop_help.kv')
 
 
-def load_pack_list(f_name):
-    if f_name == "outdated":
+def load_pack_list(pip_cmd):
+    if pip_cmd == "outdated":
         f_name = "temp_files/outdated_packs.txt"
+
     else:
         f_name = "temp_files/installed_packs.txt"
 
     with open(f_name, "r") as f:
         temp_packet_list = f.readlines()
+    print("temp_packet_list from func: ", temp_packet_list)
     return temp_packet_list
-
-
-def set_output_txt(pip_command):
-    # clear output.txt file
-    tab = "            "
-    with open(os.path.join('temp_files', "output.txt"), 'w') as f:
-        f.write(f"[b]Package:[/b]{tab * 2}[b]Version:[/b]{tab}[b]Latest:[/b]{tab}[b]Type:[/b]\n")
-    p_list = load_pack_list(pip_command)
-    for i in range(len(p_list)):
-        li_split = p_list[i].split()
-        if pip_command == "outdated":
-            with open(os.path.join('temp_files', "output.txt"), 'a') as f:
-                f.write(
-                    f"[ref={li_split[0]}]{li_split[0]}:[/ref]{tab * 3}{li_split[1]}{tab}{li_split[2]}{tab}{li_split[3]}{tab}\n")
-
-
-def load_output_text():
-    with open(os.path.join('temp_files', "output.txt"), 'r') as f:
-        output_text = f.read()
-    return output_text
 
 
 def upgrade_pack(package_name):
     com = ["pip", "install", "--upgrade", package_name]
     subprocess.run(com)
-    
 
+
+class Table(GridLayout):
+    def __init__(self, **kwargs):
+        super(Table, self).__init__(**kwargs)
+        self.create_table("outdatet")
+
+    def create_table(self, file_name):
+        d_list = []
+        data = load_pack_list(file_name)
+        for item in data:
+            d_split = item.split()
+            d_list.append(d_split)
+
+        self.clear_widgets()
+        self.add_widget(Label(text='Package:'))
+        self.add_widget(Label(text='Version:'))
+        self.add_widget(Label(text='Latest:'))
+        self.add_widget(Label(text='Type'))
+
+        for row in d_list:
+            self.add_widget(LinkLabel(text=f"[ref={row[0]}][color=#3465A4]{row[0]}[/color][/ref]", markup=True))
+            self.add_widget(Label(text=row[1]))
+            self.add_widget(Label(text="row[2]"))
+            self.add_widget(Label(text="row[3]"))
 
 
 class LinkLabel(Label):
@@ -72,6 +78,7 @@ class InfoPopup(Popup):
         print(app.act_package)
         upgrade_pack(app.act_package)
 
+
 class ScrMain(Screen):
 
     def __init__(self, **kw):
@@ -80,6 +87,7 @@ class ScrMain(Screen):
         self.packet_list = None
         self.args_scr_one = None
         self.selected_package = ""
+        self.table = Table()
 
     def upd_scr_main(self, *args):
         self.args_scr_one = args
@@ -95,10 +103,8 @@ class ScrMain(Screen):
 
     def but_package_func(self, which_pip):
         self.get_pips(which_pip)
-        self.create_packet_labels()
 
-    @staticmethod
-    def get_pips(pip_com):
+    def get_pips(self, pip_com):
         try:
             if pip_com == "outdated":
                 command = ['pip', 'list', '--outdated']
@@ -110,18 +116,18 @@ class ScrMain(Screen):
             output_str = output.decode('utf-8')
             lines = output_str.split('\n')[2:]
             output_str = '\n'.join(lines)
-
+            if output_str == "":
+                output_str = "Alle Pakete aktuell"
             with open(os.path.join('temp_files', f_name), 'w') as f:
                 f.write(output_str)
-            set_output_txt(pip_com)
+            self.create_packet_labels(pip_com)
         except subprocess.CalledProcessError as e:
             # Fehlermeldung speichern
             with open(os.path.join('temp_files', 'error.txt'), 'w') as f:
                 f.write(str(e))
 
-    def create_packet_labels(self):
-        lab_texts = load_output_text()
-        self.ids.lab_scroll_view.text = lab_texts
+    def create_packet_labels(self, pip_cmd):
+        self.table.create_table(pip_cmd)
 
 
 class ScrSett(Screen):
