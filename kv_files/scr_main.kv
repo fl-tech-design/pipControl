@@ -112,21 +112,18 @@
                         BoxBgDark:
                             orientation: "vertical"
                             padding: (2,)
-                            BoxBgLight:
+                            BoxBgDark:
                                 id: box_scr_view
                                 ScrollView:
                                     id: scroll_view
                                     do_scroll_y: True
-                                    size_hint: (1, None)
-                                    LinkLabel:
-                                        id: lab_scroll_view
+                                    size_hint: (1, 1)
+                                    Table:
+                                        name: "lab_scroll_view"
                                         size_hint_y: None
-                                        height: self.texture_size[1]
                                         text_size: self.width, None
                                         padding: 10, 10
                                         markup: True
-                            BoxBgDark:
-                                size_hint: (1, 1)
 
             BoxBgDark:
                 id: box_bottom
