@@ -54,26 +54,26 @@ class Table(RelativeLayout):
         self.add_widget(Label(text='Type'))
 
         for row in data_list:
-            pack_name_str = 'lab_' + row[0]
-
-            print(pack_name_str)
             if debug_stat:
                 print("for_loop start: ", row)
-
-            label = LinkLabel(text=f"[ref={row[0]}][color=#3465A4]{pack_name_str}[/color][/ref]",
+            label = LinkLabel(text=f"[ref={row[0]}][color=#3465A4]{row[0]}[/color][/ref]",
                               markup=True)
-            label.id = pack_name_str
             self.add_widget(label)
             self.add_widget(Label(text=row[1]))
             self.add_widget(Label(text=""))
             self.add_widget(Label(text=""))
 
 
-
 class LinkLabel(Label):
     def on_ref_press(self, instance):
         app.act_package = instance
         app.show_popup(f"möchten sie das paket {instance} upgraden?", "inst")
+
+    def on_hover(self, hover):
+        if hover:
+            self.text = 'Ich werde gehovered!'
+        else:
+            self.text = 'Ich werde nicht gehovered...'
 
 
 class InfoPopup(Popup):
@@ -106,7 +106,6 @@ class ScrMain(Screen):
         self.ids.lab_output_title.text = app.act_lab_txt["output"][app.act_lang] + ":"
         self.ids.lab_list_installed.text = app.act_lab_txt["list installed packets"][app.act_lang]
         self.ids.lab_list_outdated.text = app.act_lab_txt["list outdated packets"][app.act_lang]
-
         self.ids.but_show_inst_packs.text = app.act_lab_txt["show packs"][app.act_lang]
         self.ids.but_show_outd_packs.text = app.act_lab_txt["show packs"][app.act_lang]
         self.ids.but_sett.text = app.act_lab_txt["settings"][app.act_lang]
@@ -158,19 +157,19 @@ class ScrSett(Screen):
 class MainApp(App):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.json_data = {}
-        self.scr_man, self.scr_main, self.scr_sett = (None,) * 3
-        self.load_json_data()
+        self.app_config = {}
+        self.load_app_config()
         self.app_data = self.json_data["app_data"]
         self.act_lang = self.app_data["act_lang"]
         self.act_lab_txt = self.json_data["lab_txt"]
 
+        self.scr_man, self.scr_main, self.scr_sett = (None,) * 3
+
         self.act_b_col_n = self.app_data["colors"][self.app_data["act_col_n"]]
         self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
-        self.act_package = ""
 
     def build(self):
-        self.title = " "
+        self.title = "pip Control"
         self.scr_man = ScreenManager()
 
         self.scr_main = ScrMain()
@@ -187,8 +186,8 @@ class MainApp(App):
 
         return self.scr_man
 
-    def load_json_data(self):
-        with open("app_data.json", "r") as f:
+    def load_app_config(self):
+        with open("app_config.json", "r") as f:
             a_data = json.load(f)
         self.json_data = a_data
         self.app_data = self.json_data["app_data"]
@@ -202,12 +201,12 @@ class MainApp(App):
         self.scr_man.current = new_scr
 
     def change_lang(self, new_lang):
-        with open("app_data.json", "r") as f:
+        with open("app_config.json", "r") as f:
             data = json.load(f)
         data["app_data"]["act_lang"] = new_lang
-        with open("app_data.json", "w") as f:
+        with open("app_config.json", "w") as f:
             json.dump(data, f)
-        self.load_json_data()
+        self.load_app_config()
 
     def show_popup(self, popup_msg, tit="h"):
         popup = InfoPopup(popup_message=popup_msg)

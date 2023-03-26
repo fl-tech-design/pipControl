@@ -1,4 +1,5 @@
 venv/
 temp_files/
 .idea/
-test_file.py
+test.py
+my.kv

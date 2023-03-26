@@ -2,26 +2,42 @@
 #: set bg_dark (13/255, 13/255, 13/255, 1)
 #: set bg_light (25/255, 25/255, 25/255, 1)
 #: set bg_slight (35/255, 35/255, 35/255, 1)
-#: set bg_but_help_n (5/255, 5/255, 5/255, 0.3)
+#: set bg_but_help_n (5/255, 5/255, 5/255, 0.5)
+#: set col_font 1,1,1,0.5
+
+
+
+<BgDark@Widget>
+    canvas.before:
+        Color:
+            rgba: bg_dark
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: col_font
 
 <ButRound@Button>:
     canvas.before:
         Color:
             rgba: app.act_b_col_n if self.state == 'normal' else app.act_b_col_d
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: (15,)
-    color: 1,1,1,0.5
-    background_color: 0,0,0,0
+        Line:
+            width: 2
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+    color: col_font
+    background_color: 0,0,1,0.01
 
 <ButHelp@Button>:
     canvas.before:
         Color:
-            rgba: app.act_b_col_d if self.state == 'normal' else app.act_b_col_n
+            rgba: 0,0,0,0
         Ellipse:
             size: self.size
             pos: self.pos
+        Color:
+            rgba: app.act_b_col_d if self.state == 'normal' else app.act_b_col_n
+        Line:
+            width: 1.5
+            ellipse: (self.x, self.y, self.width, self.height)
     markup: True
     text: "[b]?[/b]"
     background_color: 0,0,0,0
@@ -29,70 +45,48 @@
 <ButLanguage@Button>:
     background_color: 0,0,0,0
 
-<LinkLabel>:
-    canvas.before:
-        Color:
-            rgba: 0,0,0,0.2
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    color: 1,1,1,0.7
+<LinkLabel+BgDark>:
     height: "25sp"
     size_hint: (1, None)
     font_size: "15sp"
 
 
-<LabDark@Label>:
-    canvas.before:
-        Color:
-            rgba: bg_dark
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    color: 1,1,1,0.5
+<LabDark@Label+BgDark>:
 
 <Logo@Image>:
     source: "pics/logo-fl-tech.png"
-    size_hint: (1,1)
 
 
-<GridActions@GridLayout>:
-    canvas.before:
-        Color:
-            rgba: bg_dark
-        Rectangle:
-            size: self.size
-            pos: self.pos
+<GridActions@GridLayout+BgDark>:
     cols: 2
     height: "60sp"
     size_hint: (1, None)
 
 
-<Table>:
-    canvas.before:
-        Color:
-            rgba: 1,0,0,1
-        Rectangle:
-            size: self.size
-            pos: self.pos
+<Table+BgDark>:
     cols: 4
     spacing: 10
 
-<BoxBgTest@BoxLayout>:
+
+<BoxBackground@BoxLayout>:
+    spacing: 10
+    padding: 10
+    canvas.before:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    background_color: bg_test
+
+
+
+<BoxTest@BoxBackground>:
     canvas.before:
         Color:
             rgba: bg_test
-        Rectangle:
-            size: self.size
-            pos: self.pos
 
-<BoxBgDark@BoxLayout>:
-    canvas.before:
-        Color:
-            rgba: bg_dark
-        Rectangle:
-            size: self.size
-            pos: self.pos
+<BoxBgDark@BoxLayout+BgDark>:
 
 <BoxBgLight@BoxLayout>:
     canvas.before:
@@ -109,3 +103,4 @@
         Rectangle:
             size: self.size
             pos: self.pos
+

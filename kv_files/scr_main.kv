@@ -1,4 +1,5 @@
 <ScrMain>:
+    # Box of the full app
     BoxBgDark:
         id: "box_0"
         orientation: "vertical"
@@ -8,6 +9,8 @@
             orientation: "vertical"
             padding:(4,)
             spacing:4
+
+            # box of the title field
             BoxBgDark:
                 name: "box_title"
                 height: "32sp"
@@ -23,13 +26,15 @@
                                     text: "pip Control Center"
                                     font_size: "18sp"
                                     color: 1,1,1,0.5
-
-            BoxBgDark:
+# Box of the middle.
+            BoxBgSlight:
                 name: "box_middle"
-                padding: (4,)
-                BoxBgLight:
-                    padding: (2,)
+                padding: (2,)
+                BoxBgDark:
+                    padding: (4,)
                     spacing: 4
+
+# the left side of the middle box
                     BoxBgSlight:
                         orientation: "vertical"
                         width: "240sp"
@@ -42,7 +47,7 @@
                             size_hint: (1, None)
                             BoxBgSlight:
                                 BoxBgDark:
-                                    padding: (4,)
+                                    padding: (2,)
                                     BoxBgLight:
                                         padding: (2,)
                                         BoxBgDark:
@@ -86,29 +91,40 @@
                                 ButHelp:
                                     on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
                         BoxBgDark:
+                            orientation: "vertical"
+                            BoxBgDark:
+                            BoxBgDark:
+                            Logo:
+                                height: "80sp"
+                                size_hint_y: None
 
+# the right side of middle box
                     BoxBgSlight:
-                        name: "box_output"
                         orientation: "vertical"
                         padding: (2,)
                         BoxBgSlight:
-                            name: "box_output_title"
-                            height: "45sp"
+                            height: "40sp"
                             size_hint: (1, None)
                             padding: 0,0,0,3
                             BoxBgDark:
-                                padding: (4,)
+                                padding: (2,)
                                 BoxBgLight:
                                     padding: (2,)
                                     BoxBgDark:
                                         orientation: "vertical"
                                         BoxBgSlight:
                                             BoxBgDark:
+                                                padding: 5,0,0,0
                                                 Label:
                                                     id: lab_output_title
                                                     color: 1,1,1,0.5
                                                     font_size: "20sp"
-                                                    halign: "left"
+                                                    text_size: self.width, None
+                                                    halign: 'left'
+                                                    valign: 'middle'
+
+
+
                         BoxBgDark:
                             orientation: "vertical"
                             padding: (2,)
@@ -119,18 +135,16 @@
                                     do_scroll_y: True
                                     size_hint: (1, 1)
                                     Table:
-                                        name: "lab_scroll_view"
                                         size_hint_y: None
                                         text_size: self.width, None
                                         padding: 10, 10
                                         markup: True
-
+# Bottom Box
             BoxBgDark:
                 id: box_bottom
                 padding: (2,)
                 height: "25sp"
                 size_hint: (1, None)
-                Logo:
                 BoxBgDark:
                 BoxBgDark:
                 ButRound:
