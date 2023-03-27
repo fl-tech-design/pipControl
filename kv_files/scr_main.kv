@@ -1,18 +1,15 @@
 <ScrMain>:
     # Box of the full app
     BoxBgDark:
-        id: "box_0"
         orientation: "vertical"
         padding: (3,)
         BoxBgLight:
-            id: "box_1"
             orientation: "vertical"
             padding:(4,)
             spacing:4
 
-            # box of the title field
+# box of the title field
             BoxBgDark:
-                name: "box_title"
                 height: "32sp"
                 size_hint: (1, None)
                 BoxBgSlight:
@@ -63,7 +60,7 @@
                         GridActions:
                             BoxBgDark:
                                 padding: (4,12,0,12)
-                                ButRound:
+                                RoundedButtonLined:
                                     id: but_show_inst_packs
                                     on_release: root.but_package_func("installed")
 
@@ -71,7 +68,7 @@
                                 width: "60sp"
                                 size_hint: (None, 1)
                                 padding: (15,)
-                                ButHelp:
+                                HelpButton:
                                     on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
                         BoxBgDark:
                             height: "30sp"
@@ -81,15 +78,15 @@
                         GridActions:
                             BoxBgDark:
                                 padding: (4,12,0,12)
-                                ButRound:
+                                RoundedButtonLined:
                                     id: but_show_outd_packs
                                     on_release: root.but_package_func("outdated")
                             BoxBgDark:
                                 width: "60sp"
                                 size_hint: (None, 1)
                                 padding: (15,)
-                                ButHelp:
-                                    on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
+                                HelpButton:
+                                    on_release: app.show_popup(app.act_lab_txt["help_1"][app.act_lang])
                         BoxBgDark:
                             orientation: "vertical"
                             BoxBgDark:
@@ -143,13 +140,15 @@
             BoxBgDark:
                 id: box_bottom
                 padding: (2,)
-                height: "25sp"
+                height: "30sp"
                 size_hint: (1, None)
                 BoxBgDark:
                 BoxBgDark:
-                ButRound:
-                    id: but_sett
+                BoxBgDark:
                     width: "150sp"
                     size_hint: (None, 1)
-                    on_release: app.change_scr("left", "scr_sett")
+                    padding: (2,)
+                    RoundedButtonLined:
+                        id: but_sett
+                        on_release: app.change_screen("left", "scr_sett")
 

@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+from pathlib import Path
 
 from kivy.app import App
 from kivy.clock import Clock
@@ -11,57 +12,65 @@ from kivy.uix.popup import Popup
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.screenmanager import Screen, ScreenManager
 
-Builder.load_file("kv_files/main.kv")
-Builder.load_file("kv_files/scr_main.kv")
-Builder.load_file("kv_files/scr_sett.kv")
-Builder.load_file('kv_files/pop_help.kv')
-
 debug_stat = 0
 
 
+def load_kv_files():
+    if debug_stat:
+        print("load_kv_files() called...")
+    Builder.load_file("kv_files/main.kv")
+    Builder.load_file("kv_files/scr_main.kv")
+    Builder.load_file("kv_files/scr_sett.kv")
+    Builder.load_file('kv_files/pop_help.kv')
+    Builder.load_file('config/colors.kv')
+    Builder.load_file('config/components.kv')
+
+
 def create_temp_files():
-    print("create_temp_files called:")
+    if debug_stat:
+        print("create_temp_files() called:")
     temp_folder = "temp_files"
     file_names = ["installed_packs.txt", "outdated_packs.txt", 'output.txt']
 
     if not os.path.exists(temp_folder):
         os.makedirs(temp_folder)
 
-    file1 = os.path.join(temp_folder, file_names[0])
-    if not os.path.exists(file1):
-        with open(file1, "w") as f:
-            f.write("")
-
-    file2 = os.path.join(temp_folder, file_names[1])
-    if not os.path.exists(file2):
-        with open(file2, "w") as f:
-            f.write("")
-
-    file3 = os.path.join(temp_folder, file_names[2])
-    if not os.path.exists(file3):
-        with open(file3, "w") as f:
-            f.write("")
+    for file_name in file_names:
+        file_path = os.path.join(temp_folder, file_name)
+        if not os.path.exists(file_path):
+            with open(file_path, "w") as f:
+                f.write("")
 
 
-def ret_temp_pack_file(file_name):
-    if file_name == "outdated":
-        f_name = "temp_files/outdated_packs.txt"
-    else:
-        f_name = "temp_files/installed_packs.txt"
+def ret_temp_pack_file(file_name: str) -> [str]:
+    """
+    Reads a text file containing packet data from the 'temp_files' directory with the given file name,
+    and returns a list of strings, where each string is a line in the file.
+
+    Args:
+    - file_name (str): The name of the file to be read, without the '.txt' extension.
+
+    Returns:
+    - temp_packet_list (List[str]): A list of strings representing the lines of the file.
+
+    """
+
+    f_name = f"temp_files/{file_name}_packs.txt"
     with open(f_name, "r") as f:
         temp_packet_list = f.readlines()
     if debug_stat:
-        print("Packagelist from ret_temp_pack_file: ", temp_packet_list)
+        print(f_name)
+        print("temp_packet_list from ret_temp_pack_file():\n", temp_packet_list)
     return temp_packet_list
 
 
 def upgrade_pack(package_name):
     com = ["pip", "install", "--upgrade", package_name]
-    subprocess.run(com)
+    subprocess.Popen(com)
 
 
 class Table(RelativeLayout):
-    def create_table(self, file_name, s):
+    def create_table(self, file_name):
         data_list = []
         data = ret_temp_pack_file(file_name)
         for item in data:
@@ -93,12 +102,6 @@ class LinkLabel(Label):
         app.act_package = instance
         app.show_popup(f"möchten sie das paket {instance} upgraden?", "inst")
 
-    def on_hover(self, hover):
-        if hover:
-            self.text = 'Ich werde gehovered!'
-        else:
-            self.text = 'Ich werde nicht gehovered...'
-
 
 class InfoPopup(Popup):
     popup_message = StringProperty('')  # The text to display in the popup message
@@ -107,7 +110,8 @@ class InfoPopup(Popup):
         super().__init__(**kwargs)
         self.popup_message = popup_message
 
-    def but_yes_func(self):
+    @staticmethod
+    def but_yes_func():
         if debug_stat:
             print("but_yes_func called...")
         upgrade_pack(app.act_package)
@@ -117,15 +121,12 @@ class ScrMain(Screen):
 
     def __init__(self, **kw):
         super().__init__(**kw)
-        self.len_packet_list = None
-        self.packet_list = None
-        self.args_scr_one = None
-        self.selected_package = ""
+        self.args_scr_main = None
         self.table = Table()
+        self.table.create_table("installed")
 
     def upd_scr_main(self, *args):
-        self.args_scr_one = args
-
+        self.args_scr_main = args
         self.ids.lab_actions_title.text = app.act_lab_txt["actions"][app.act_lang] + ":"
         self.ids.lab_output_title.text = app.act_lab_txt["output"][app.act_lang] + ":"
         self.ids.lab_list_installed.text = app.act_lab_txt["list installed packets"][app.act_lang]
@@ -136,27 +137,42 @@ class ScrMain(Screen):
 
     def but_package_func(self, pip_cmd):
         self.get_pips(pip_cmd)
-        self.table.create_table(pip_cmd, 1)
 
-    def get_pips(self, pip_cmd):
+    @staticmethod
+    def get_pips(pip_cmd):
+        """
+        Get a list of installed or outdated pip packages.
+
+        Args:
+            pip_cmd (str, optional): Command to run. Can be either "outdated" to get outdated packages or
+            "installed" to get installed packages. Defaults to "installed".
+
+        Returns:
+            None
+        """
+
         try:
             if pip_cmd == "outdated":
                 command = ['pip', 'list', '--outdated']
-                f_name = 'outdated_packs.txt'
+                filename = 'outdated_packs.txt'
             else:
                 command = ['pip', 'list']
-                f_name = 'installed_packs.txt'
-            output = subprocess.check_output(command)
-            output_str = output.decode('utf-8')
-            lines = output_str.split('\n')[2:]
-            output_str = '\n'.join(lines)
-            if output_str == "":
-                output_str = "Alle Pakete aktuell"
-            with open(os.path.join('temp_files', f_name), 'w') as f:
-                f.write(output_str)
-        except subprocess.CalledProcessError as e:
-            # Fehlermeldung speichern
-            with open(os.path.join('temp_files', 'error.txt'), 'w') as f:
+                filename = 'installed_packs.txt'
+            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if result.returncode == 0:
+                output_lines = result.stdout.strip().split('\n')[2:]  # die ersten beiden Zeilen entfernen
+                output_str = '\n'.join(output_lines)
+
+                if not output_str:
+                    output_str = "Alle Pakete aktuell"
+                with open(Path('temp_files') / filename, 'w') as f:
+                    f.write(output_str)
+            else:
+                error_str = result.stderr.strip()
+                with open(Path('temp_files') / 'error.txt', 'w') as f:
+                    f.write(error_str)
+        except subprocess.SubprocessError as e:
+            with open(Path('temp_files') / 'error.txt', 'w') as f:
                 f.write(str(e))
 
 
@@ -179,21 +195,57 @@ class ScrSett(Screen):
 
 
 class MainApp(App):
+    """
+     The main application class.
+
+     This class inherits from the `kivy.app.App` class and implements the main functionality of the pip Control
+     application. It contains methods for loading the application configuration and translation files, changing the
+     current screen, changing the language of the application, and displaying popup windows. It also defines the `build`
+     method, which creates and returns the root widget of the application.
+
+     Attributes:
+         act_package (str): The name of the currently selected package.
+         app_config (dict): The application configuration loaded from the "config/app_config.json" file.
+         app_data (dict): The application data loaded from the "config/app_config.json" file.
+         act_lab_txt (dict): The translation strings loaded from the "config/translations.json" file.
+         act_lang (str): The currently selected language code.
+         scr_man (kivy.uix.screenmanager.ScreenManager): The screen manager object that manages the application screens.
+         scr_main (ScrMain): The main screen object.
+         scr_sett (ScrSett): The settings screen object.
+         button_col_norm (tuple): The color tuple for normal buttons.
+         button_col_down (tuple): The color tuple for pressed buttons.
+         act_font_l (str): The name of the currently selected light font.
+         act_font_d (str): The name of the currently selected dark font.
+
+     Methods:
+         __init__(self, **kwargs): Initializes the `MainApp` instance and sets its initial state.
+         build(self) -> kivy.uix.screenmanager.ScreenManager: Builds and returns the root widget of the application.
+         load_app_config(self) -> None: Loads the application configuration and translation files.
+         change_screen(self, trans: str, new_scr_name: str) -> None: Changes the current screen displayed by the
+                                                                                                    application.
+         change_language(self, new_language: str) -> None: Changes the language of the application by updating the
+                                                                                                 configuration file.
+         show_popup(self, popup_msg: str, tit: str = "help") -> None: Displays a popup window with a message.
+     """
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        print("iinit start")
+        print("__init__() called...")
         create_temp_files()
+        load_kv_files()
         self.act_package = ""
         self.app_config = {}
+        self.app_data = {}
+        self.act_lab_txt = {}
         self.load_app_config()
-        self.app_data = self.json_data["app_data"]
         self.act_lang = self.app_data["act_lang"]
-        self.act_lab_txt = self.json_data["lab_txt"]
 
         self.scr_man, self.scr_main, self.scr_sett = (None,) * 3
 
-        self.act_b_col_n = self.app_data["colors"][self.app_data["act_col_n"]]
-        self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
+        self.button_col_norm = self.app_data["colors"][self.app_data["but_col_n"]]
+        self.button_col_down = self.app_data["colors"][self.app_data["but_col_d"]]
+        self.act_font_l = self.app_data["font_light"]
+        self.act_font_d = self.app_data["font_dark"]
 
     def build(self):
         print("build start")
@@ -215,28 +267,69 @@ class MainApp(App):
         return self.scr_man
 
     def load_app_config(self):
-        with open("app_config.json", "r") as f:
-            a_data = json.load(f)
-        self.json_data = a_data
-        self.app_data = self.json_data["app_data"]
+        """Loads the application configuration and translation files.
+
+           Reads the contents of the "config/app_config.json" and "config/translations.json" files and stores them
+           in the `app_data` and `act_lab_txt` instance variables, respectively. It also sets the `act_lang`,
+           `button_col_norm`, and `button_col_down` instance variables based on the contents of `app_data`.
+
+           Returns:
+               None
+           """
+        with open("config/app_config.json", "r", encoding="utf-8") as file:
+            a_data = json.load(file)
+        with open("config/translations.json", "r", encoding="utf-8") as file:
+            a_text = json.load(file)
+
+        self.app_data = a_data
+        self.act_lab_txt = a_text
         self.act_lang = self.app_data["act_lang"]
-        self.act_lab_txt = self.json_data["lab_txt"]
-        self.act_b_col_n = self.app_data["colors"][self.app_data["act_col_n"]]
-        self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
+        self.button_col_norm = self.app_data["colors"][self.app_data["but_col_n"]]
+        self.button_col_down = self.app_data["colors"][self.app_data["but_col_d"]]
 
-    def change_scr(self, trans, new_scr):
+    def change_screen(self, trans: str, new_scr_name: str) -> None:
+        """
+        Changes the current screen displayed by the application.
+
+        :param trans: The transition direction for the screen change.
+        :type trans: str
+        :param new_scr_name: The name of the new screen to display.
+        :type new_scr_name: str
+        :return: None.
+        :rtype: None
+        """
         self.scr_man.transition.direction = trans
-        self.scr_man.current = new_scr
+        self.scr_man.current = new_scr_name
 
-    def change_lang(self, new_lang):
-        with open("app_config.json", "r") as f:
-            data = json.load(f)
-        data["app_data"]["act_lang"] = new_lang
-        with open("app_config.json", "w") as f:
-            json.dump(data, f)
+    def change_language(self, new_language: str) -> None:
+        """
+        Changes the language of the application by updating the configuration file.
+
+        :param new_language: The new language code to set the application to.
+        :type new_language: str
+        :return: None.
+        :rtype: None
+        """
+        with open("config/app_config.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+        data["act_lang"] = new_language
+        with open("config/app_config.json", "w", encoding="utf-8") as file:
+            json.dump(data, file)
         self.load_app_config()
 
-    def show_popup(self, popup_msg, tit="h"):
+    def show_popup(self, popup_msg: str, tit: str = "help") -> None:
+        """
+        Displays a popup window with a message.
+
+        :param popup_msg: The message to be displayed in the popup window.
+        :type popup_msg: str
+        :param tit: The title of the popup window. The default value is 'help', which stands for Help.
+                   If the title is 'install', an installation popup will be displayed.
+                   If the title is not 'help' or 'install', an information popup will be displayed.
+        :type tit: str
+        :return: None.
+        :rtype: None
+        """
         popup = InfoPopup(popup_message=popup_msg)
         if tit == "h":
             popup.title = self.act_lab_txt["help"][self.act_lang]

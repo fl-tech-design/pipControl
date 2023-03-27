@@ -1,49 +1,10 @@
-#: set bg_test 1, 0, 0, 1
-#: set bg_dark (13/255, 13/255, 13/255, 1)
-#: set bg_light (25/255, 25/255, 25/255, 1)
-#: set bg_slight (35/255, 35/255, 35/255, 1)
-#: set bg_but_help_n (5/255, 5/255, 5/255, 0.5)
-#: set col_font 1,1,1,0.5
 
 
 
-<BgDark@Widget>
-    canvas.before:
-        Color:
-            rgba: bg_dark
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    color: col_font
 
-<ButRound@Button>:
-    canvas.before:
-        Color:
-            rgba: app.act_b_col_n if self.state == 'normal' else app.act_b_col_d
-        Line:
-            width: 2
-            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
-    color: col_font
-    background_color: 0,0,1,0.01
 
-<ButHelp@Button>:
-    canvas.before:
-        Color:
-            rgba: 0,0,0,0
-        Ellipse:
-            size: self.size
-            pos: self.pos
-        Color:
-            rgba: app.act_b_col_d if self.state == 'normal' else app.act_b_col_n
-        Line:
-            width: 1.5
-            ellipse: (self.x, self.y, self.width, self.height)
-    markup: True
-    text: "[b]?[/b]"
-    background_color: 0,0,0,0
 
-<ButLanguage@Button>:
-    background_color: 0,0,0,0
+
 
 <LinkLabel+BgDark>:
     height: "25sp"
@@ -63,44 +24,10 @@
     size_hint: (1, None)
 
 
-<Table+BgDark>:
+<Table+BgLight>:
     cols: 4
     spacing: 10
 
 
-<BoxBackground@BoxLayout>:
-    spacing: 10
-    padding: 10
-    canvas.before:
-        Color:
-            rgba: 0.5, 0.5, 0.5, 1
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    background_color: bg_test
 
-
-
-<BoxTest@BoxBackground>:
-    canvas.before:
-        Color:
-            rgba: bg_test
-
-<BoxBgDark@BoxLayout+BgDark>:
-
-<BoxBgLight@BoxLayout>:
-    canvas.before:
-        Color:
-            rgba: bg_light
-        Rectangle:
-            size: self.size
-            pos: self.pos
-
-<BoxBgSlight@BoxLayout>:
-    canvas.before:
-        Color:
-            rgba: bg_slight
-        Rectangle:
-            size: self.size
-            pos: self.pos
 

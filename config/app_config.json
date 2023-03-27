@@ -1,0 +1,31 @@
+{
+  "act_lang": "en",
+  "but_col_n": "purple_n",
+  "but_col_d": "purple_d",
+  "colors": {
+    "purple_d": [
+      0.094,
+      0.062,
+      0.239,
+      0.8
+    ],
+    "purple_n": [
+      0.094,
+      0.062,
+      0.239,
+      1
+    ]
+  },
+  "font_light": [
+    1,
+    1,
+    1,
+    0.5
+  ],
+  "font_dark": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+  ]
+}
