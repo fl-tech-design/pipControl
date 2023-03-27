@@ -11,7 +11,7 @@
             BoxBgDark:
                 height: "30sp"
                 size_hint: (1, None)
-                Label:
+                LabDark:
                     id: tit_sett
                     font_size: "23sp"
             BoxBgDark:
@@ -29,8 +29,9 @@
                         padding: (2,)
                         BoxBgDark:
                             size_hint: (1, 0.1)
-                            Label:
+                            LabDark:
                                 id: tit_language
+                                font_size: "23sp"
 
                         BoxBgDark:
                             size_hint: (1, 0.1)
@@ -40,9 +41,9 @@
                                 source: "pics/flag_germany.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ButLanguage:
+                            ClearButton:
                                 id: but_german
-                                on_release: app.change_lang("de")
+                                on_release: app.change_language("de")
                         BoxBgDark:
                             size_hint: (1, 0.1)
                             orientation: "horizontal"
@@ -51,9 +52,9 @@
                                 source: "pics/flag_france.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ButLanguage:
+                            ClearButton:
                                 id: but_french
-                                on_release: app.change_lang("fr")
+                                on_release: app.change_language("fr")
                         BoxBgDark:
                             size_hint: (1, 0.1)
                             orientation: "horizontal"
@@ -62,9 +63,9 @@
                                 source: "pics/flag_italy.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ButLanguage:
+                            ClearButton:
                                 id: but_italian
-                                on_release: app.change_lang("it")
+                                on_release: app.change_language("it")
                         BoxBgDark:
                             size_hint: (1, 0.1)
                             orientation: "horizontal"
@@ -73,9 +74,9 @@
                                 source: "pics/flag_spain.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ButLanguage:
+                            ClearButton:
                                 id: but_spanish
-                                on_release: app.change_lang("es")
+                                on_release: app.change_language("es")
                         BoxBgDark:
                             size_hint: (1, 0.1)
                             orientation: "horizontal"
@@ -84,9 +85,9 @@
                                 source: "pics/flag_uk.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ButLanguage:
+                            ClearButton:
                                 id: but_english
-                                on_release: app.change_lang("en")
+                                on_release: app.change_language("en")
                         BoxBgDark:
                             size_hint: (1, 0.1)
                             orientation: "horizontal"
@@ -95,9 +96,9 @@
                                 source: "pics/flag_greece.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ButLanguage:
+                            ClearButton:
                                 id: but_greek
-                                on_release: app.change_lang("gr")
+                                on_release: app.change_language("gr")
 
                         BoxBgDark:
                             orientation: "vertical"
@@ -109,13 +110,15 @@
             BoxBgDark:
                 id: box_bott_sett
                 padding: (2,)
-                height: "25sp"
+                height: "30sp"
                 size_hint: (1, None)
-                ButRound:
-                    id: but_back
+                BoxBgDark:
                     width: "150sp"
                     size_hint: (None, 1)
-                    on_release: app.change_scr("right", "scr_main")
+                    padding: (2,)
+                    RoundedButtonLined:
+                        id: but_back
+                        on_release: app.change_screen("right", "scr_main")
                 BoxBgDark:
                 BoxBgDark:
 
