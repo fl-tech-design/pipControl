@@ -19,6 +19,30 @@ Builder.load_file('kv_files/pop_help.kv')
 debug_stat = 0
 
 
+def create_temp_files():
+    print("create_temp_files called:")
+    temp_folder = "temp_files"
+    file_names = ["installed_packs.txt", "outdated_packs.txt", 'output.txt']
+
+    if not os.path.exists(temp_folder):
+        os.makedirs(temp_folder)
+
+    file1 = os.path.join(temp_folder, file_names[0])
+    if not os.path.exists(file1):
+        with open(file1, "w") as f:
+            f.write("")
+
+    file2 = os.path.join(temp_folder, file_names[1])
+    if not os.path.exists(file2):
+        with open(file2, "w") as f:
+            f.write("")
+
+    file3 = os.path.join(temp_folder, file_names[2])
+    if not os.path.exists(file3):
+        with open(file3, "w") as f:
+            f.write("")
+
+
 def ret_temp_pack_file(file_name):
     if file_name == "outdated":
         f_name = "temp_files/outdated_packs.txt"
@@ -85,7 +109,7 @@ class InfoPopup(Popup):
 
     def but_yes_func(self):
         if debug_stat:
-            print(app.act_package)
+            print("but_yes_func called...")
         upgrade_pack(app.act_package)
 
 
@@ -157,6 +181,9 @@ class ScrSett(Screen):
 class MainApp(App):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        print("iinit start")
+        create_temp_files()
+        self.act_package = ""
         self.app_config = {}
         self.load_app_config()
         self.app_data = self.json_data["app_data"]
@@ -169,6 +196,7 @@ class MainApp(App):
         self.act_b_col_d = self.app_data["colors"][self.app_data["act_col_d"]]
 
     def build(self):
+        print("build start")
         self.title = "pip Control"
         self.scr_man = ScreenManager()
 
