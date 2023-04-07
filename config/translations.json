@@ -104,12 +104,12 @@
     "gr": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b1"
   },
   "install": {
-    "en": "Information",
-    "de": "Information",
-    "fr": "Information",
-    "es": "Informaci\u00f3n",
-    "it": "Informazione",
-    "gr": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b1"
+    "en": "Installation",
+    "de": "Installation",
+    "fr": "Installation",
+    "es": "Instalación",
+    "it": "Installazione",
+    "gr": "Εγκατάσταση"
   },
   "language": {
     "en": "Language:",

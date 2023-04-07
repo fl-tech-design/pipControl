@@ -1,41 +1,38 @@
-#: set bg_test 1, 0, 0, 1
-#: set bg_dark (13/255, 13/255, 13/255, 1)
-#: set bg_light (25/255, 25/255, 25/255, 1)
-#: set bg_slight (35/255, 35/255, 35/255, 1)
-
 <BgDark@Widget>
     canvas.before:
         Color:
-            rgba: bg_dark
+            rgba: app.a_conf.colors["bg_d_1"]
         Rectangle:
             size: self.size
             pos: self.pos
-    color: app.act_font_l
+    color: app.a_conf.colors["font_dark"]
 
 <BgLight@Widget>
     canvas.before:
         Color:
-            rgba: bg_light
+            rgba: app.a_conf.colors["bg_l_1"]
         Rectangle:
             size: self.size
             pos: self.pos
-    color: app.act_font_d
+    color: app.a_conf.colors["font_dark"]
 
 <BgSlight@Widget>
     canvas.before:
         Color:
-            rgba: bg_slight
+            rgba: app.a_conf.colors["bg_l_2"]
         Rectangle:
             size: self.size
             pos: self.pos
-    color: app.act_font_d
+    color: app.a_conf.colors["font_dark"]
 
-<BgTest@Widget>
+
+
+<BgRed@Widget>
     canvas.before:
         Color:
-            rgba: bg_test
+            rgba: app.a_conf.colors["bg_red"]
         Rectangle:
             size: self.size
             pos: self.pos
-    color: app.act_font_d
+    color: app.a_conf.colors["font_dark"]
 
