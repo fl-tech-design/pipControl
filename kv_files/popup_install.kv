@@ -1,4 +1,4 @@
-<InfoPopup>:
+<PopupInstall>:
     canvas.before:
         Color:
             rgba: app.a_conf.colors["but_down"]
@@ -18,9 +18,16 @@
             font_size: '16sp'
         BoxBgDark:
             id: box_button
+            spacing: 10
             RoundedButtonLined:
                 id: but_yes
-                text: 'OK'
+                text: 'yes'
                 size_hint_y: None
                 height: 40
-                on_release: root.dismiss()
+                on_release: root.but_func("yes")
+            RoundedButtonLined:
+                id: but_yes
+                text: 'no'
+                size_hint_y: None
+                height: 40
+                on_release: root.but_func("No")

@@ -2,12 +2,12 @@
     BoxBgDark:
         name: "box_main"
         orientation: "vertical"
-        padding: 5,5,5,5
+        padding: (4,)
         BoxBgLight:
             name: "box_title"
             orientation: "vertical"
-            padding:5,5,5,5
-            spacing:5
+            padding:(4,)
+            spacing:8
             BoxBgDark:
                 height: "30sp"
                 size_hint: (1, None)
@@ -41,7 +41,7 @@
                                 source: "pics/flag_germany.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ClearButton:
+                            ButtonClear:
                                 id: but_german
                                 on_release: app.change_language("de")
                         BoxBgDark:
@@ -52,7 +52,7 @@
                                 source: "pics/flag_france.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ClearButton:
+                            ButtonClear:
                                 id: but_french
                                 on_release: app.change_language("fr")
                         BoxBgDark:
@@ -63,7 +63,7 @@
                                 source: "pics/flag_italy.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ClearButton:
+                            ButtonClear:
                                 id: but_italian
                                 on_release: app.change_language("it")
                         BoxBgDark:
@@ -74,7 +74,7 @@
                                 source: "pics/flag_spain.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ClearButton:
+                            ButtonClear:
                                 id: but_spanish
                                 on_release: app.change_language("es")
                         BoxBgDark:
@@ -85,7 +85,7 @@
                                 source: "pics/flag_uk.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ClearButton:
+                            ButtonClear:
                                 id: but_english
                                 on_release: app.change_language("en")
                         BoxBgDark:
@@ -96,7 +96,7 @@
                                 source: "pics/flag_greece.png"
                                 size_hint: (0.2, 1)
                                 padding: (2,)
-                            ClearButton:
+                            ButtonClear:
                                 id: but_greek
                                 on_release: app.change_language("gr")
 
@@ -106,7 +106,7 @@
                             BoxBgDark:
                             Logo:
                     BoxBgDark:
-
+# Start Box Bottom from Screen Settings:
             BoxBgDark:
                 id: box_bott_sett
                 padding: (2,)

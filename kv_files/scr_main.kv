@@ -1,4 +1,5 @@
 <ScrMain>:
+    name: "scr_main"
     # Box of the full app
     BoxBgDark:
         orientation: "vertical"
@@ -38,6 +39,7 @@
                         size_hint: (None, 1)
                         padding: (2,)
                         spacing: 4
+# start of the title box
                         BoxBgDark:
                             id: "box_actions"
                             height: "40sp"
@@ -52,6 +54,7 @@
                                                 id: lab_actions_title
                                                 color: 1,1,1,0.5
                                                 font_size: "20sp"
+# Box installed pips.
                         BoxBgDark:
                             height: "30sp"
                             size_hint:(1,None)
@@ -62,14 +65,14 @@
                                 padding: (4,12,0,12)
                                 RoundedButtonLined:
                                     id: but_show_inst_packs
-                                    on_release: root.but_package_func("installed")
-
+                                    on_release: root.but_pips_func("")
                             BoxBgDark:
                                 width: "60sp"
                                 size_hint: (None, 1)
                                 padding: (15,)
-                                HelpButton:
-                                    on_release: app.show_popup(app.act_lab_txt["help_2"][app.act_lang])
+                                ButtonHelp:
+                                    on_release: app.show_info_popup(root.act_lab_txt["help_2"][root.act_lang])
+# Box outdated pips
                         BoxBgDark:
                             height: "30sp"
                             size_hint:(1,None)
@@ -80,13 +83,13 @@
                                 padding: (4,12,0,12)
                                 RoundedButtonLined:
                                     id: but_show_outd_packs
-                                    on_release: root.but_package_func("outdated")
+                                    on_release: root.but_pips_func("--outdated")
                             BoxBgDark:
                                 width: "60sp"
                                 size_hint: (None, 1)
                                 padding: (15,)
-                                HelpButton:
-                                    on_release: app.show_popup(app.act_lab_txt["help_1"][app.act_lang])
+                                ButtonHelp:
+                                    on_release: app.show_info_popup(root.act_lab_txt["help_1"][root.act_lang])
                         BoxBgDark:
                             orientation: "vertical"
                             BoxBgDark:
@@ -121,21 +124,24 @@
                                                     valign: 'middle'
 
 
-
+# Box with the output field of the terminal
                         BoxBgDark:
                             orientation: "vertical"
                             padding: (2,)
                             BoxBgDark:
-                                id: box_scr_view
+                                id: box_scroll_view
                                 ScrollView:
-                                    id: scroll_view
+                                    do_scroll_x: False
                                     do_scroll_y: True
-                                    size_hint: (1, 1)
-                                    Table:
+
+                                    LabelLinked:
+                                        id: lab_output
                                         size_hint_y: None
+                                        height: self.texture_size[1]
                                         text_size: self.width, None
                                         padding: 10, 10
                                         markup: True
+
 # Bottom Box
             BoxBgDark:
                 id: box_bottom

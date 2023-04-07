@@ -1,0 +1,58 @@
+# This file contains various personalized widgets.
+# You have to load the colors.kv file in your python code with Builder.load_file()
+
+
+<ButtonClear@Button+BgDark>:
+    font_size: "20sp"
+    background_color: 0,0,0,0
+    color: app.a_conf.colors["font_light"] if self.state == 'normal' else app.a_conf.colors["font_dark"]
+
+<ButtonHelp@Button>:
+    canvas.before:
+        Color:
+            rgba: app.a_conf.colors["but_down"] if self.state == 'normal' else app.a_conf.colors["but_norm"]
+        Line:
+            width: 2
+            ellipse: (self.x, self.y, self.width, self.height)
+    markup: True
+    text: "[b]?[/b]"
+    background_color: 0,0,0,0
+    color: app.a_conf.colors["font_light"] if self.state == 'normal' else app.a_conf.colors["font_dark"]
+
+<RoundedButtonLined@Button>:
+    canvas.before:
+        Color:
+            rgba: app.a_conf.colors["but_norm"] if self.state == 'normal' else app.a_conf.colors["but_down"]
+        Line:
+            width: 2
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+    color: app.a_conf.colors["font_light"] if self.state == 'normal' else app.a_conf.colors["font_dark"]
+    background_color: 0,0,0,0
+
+<ButtonRoundedFilled@Button>:
+    canvas.before:
+        Color:
+            rgba: app.a_conf.colors["but_norm"] if self.state == 'normal' else app.a_conf.colors["but_down"]
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+    color: app.a_conf.colors["font_light"] if self.state == 'normal' else app.a_conf.colors["font_dark"]
+    background_color: 0,0,0,0
+
+
+<BoxBgDark@BoxLayout+BgDark>:
+
+<BoxBgLight@BoxLayout+BgLight>:
+
+<BoxBgSlight@BoxLayout+BgSlight>:
+
+<BoxRed@BoxLayout+BgRed>:
+
+<GridActions@GridLayout+BgDark>:
+    cols: 2
+    height: "60sp"
+    size_hint: (1, None)
+
+<LabelLinked+BgDark>:
+
+<LabDark@Label+BgDark>:
