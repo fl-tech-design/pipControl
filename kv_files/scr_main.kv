@@ -11,7 +11,7 @@
 
 # box of the title field
             BoxBgDark:
-                height: "32sp"
+                height: "50sp"
                 size_hint: (1, None)
                 BoxBgSlight:
                     padding: (2,)
@@ -21,7 +21,9 @@
                             padding: (2,)
                             BoxBgDark:
                                 Label:
+                                    id: title_win
                                     text: "pip Control Center"
+                                    font_name: "fonts/ChunkFive-Regular.otf"
                                     font_size: "18sp"
                                     color: 1,1,1,0.5
 # Box of the middle.
@@ -95,8 +97,6 @@
                             BoxBgDark:
                             BoxBgDark:
                             Logo:
-                                height: "80sp"
-                                size_hint_y: None
 
 # the right side of middle box
                     BoxBgSlight:
@@ -117,8 +117,9 @@
                                                 padding: 5,0,0,0
                                                 Label:
                                                     id: lab_output_title
+                                                    font_name: "fonts/Jura-Regular.otf"
                                                     color: 1,1,1,0.5
-                                                    font_size: "20sp"
+                                                    font_size: "23sp"
                                                     text_size: self.width, None
                                                     halign: 'left'
                                                     valign: 'middle'

@@ -11,6 +11,7 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen, ScreenManager
 
+
 debug_stat = 0
 
 
@@ -179,7 +180,7 @@ class ScrMain(Screen):
             get_pips(pip_cmd): Helper method for but_package_func that runs a pip command and writes
             the output to a file.
         """
-
+    font_title = StringProperty("Amatic")
     def __init__(self, **kw):
         super().__init__(**kw)
         self.pip_comand = ""
@@ -222,20 +223,50 @@ class ScrMain(Screen):
         command = ["pip", "list", pip_cmd]
         output_str = ""
         out_split_list = []
+
+        p_names = []
+        len_p_names = []
+        p_versi = []
+        len_p_versi = []
+        p_latest = []
+        len_p_latest = []
+        p_type = []
+        len_p_type = []
+        p_hold_1 = " "
+        p_hold_2 = " "
+        p_hold_3 = " "
+
         try:
             result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
             if result.returncode == 0:
                 output_lines = result.stdout.strip().split('\n')
                 output_lines = output_lines[2:]
+
                 for i in range(len(output_lines)):
                     out_split = output_lines[i].split()
+                    p_names.append(out_split[0])
+                    len_p_names.append(len(out_split[0]))
+                    p_versi.append(out_split[1])
+                    len_p_versi.append(len(out_split[1]))
                     if self.pip_comand == "--outdated":
-                        out_str = f"[ref={out_split[0]}][color=#0000FF]{out_split[0]}[/color][/ref]    " \
-                                  f"{out_split[1]}     {out_split[2]}    {out_split[3]}"
+                        out_str = f"[ref={out_split[0]}][color=#0000FF]{out_split[0]}[/color][/ref]{p_hold_1}{out_split[1]}" + p_hold_2 + f"{out_split[2]}" + p_hold_3 + f"{out_split[3]}"
+                        p_latest = out_split[2]
+                        len_p_latest = len(out_split[2])
+                        p_type = out_split[3]
+                        len_p_type = len(out_split[3])
+
                     else:
-                        out_str = f"{out_split[0]}    {out_split[1]}"
+                        out_str = f"{out_split[0]}{p_hold_1}{out_split[1]}"
                     out_split_list.append(out_str)
                     output_str = '\n'.join(out_split_list)
+                print(p_names)
+                print(len_p_names)
+                print(p_versi)
+                print(len_p_versi)
+                print(p_latest)
+                print(len_p_latest)
+                print(p_type)
+                print(len_p_type)
                 if not output_str:
                     output_str = "Alle Pakete aktuell"
                 with open(Path("temp_files") / "output.txt", "w", encoding="utf-8") as tmp_file:
@@ -268,7 +299,7 @@ class ScrSett(Screen):
     def upd_scr_sett(self, *args):
         """ updates all app_configs and label text in the app."""
         self.ids.tit_sett.text = AppConfig().act_lab_txt["settings"][AppConfig().act_lang]
-        self.ids.tit_language.text = AppConfig().act_lab_txt["language"][AppConfig().act_lang]
+        self.ids.tit_language.text = f"[b]{AppConfig().act_lab_txt['language'][AppConfig().act_lang]}[/b]"
         self.ids.but_french.text = AppConfig().act_lab_txt["french"][AppConfig().act_lang]
         self.ids.but_german.text = AppConfig().act_lab_txt["german"][AppConfig().act_lang]
         self.ids.but_greek.text = AppConfig().act_lab_txt["greek"][AppConfig().act_lang]

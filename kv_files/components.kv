@@ -3,6 +3,7 @@
 
 
 <ButtonClear@Button+BgDark>:
+
     font_size: "20sp"
     background_color: 0,0,0,0
     color: app.a_conf.colors["font_light"] if self.state == 'normal' else app.a_conf.colors["font_dark"]
@@ -27,6 +28,8 @@
             width: 2
             rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
     color: app.a_conf.colors["font_light"] if self.state == 'normal' else app.a_conf.colors["font_dark"]
+    font_name: "fonts/Jura-Regular.otf"
+
     background_color: 0,0,0,0
 
 <ButtonRoundedFilled@Button>:
@@ -56,3 +59,4 @@
 <LabelLinked+BgDark>:
 
 <LabDark@Label+BgDark>:
+    font_name: "fonts/Jura-Regular.otf"
